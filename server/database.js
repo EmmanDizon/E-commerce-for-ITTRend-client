@@ -11,7 +11,7 @@ const database = () => {
     .then((res) => {
       logger.info(`Connected to mongoDB with host: ${res.connection.host}`);
     })
-    .catch((error) => console.log(error));
+    .catch((error) => logger.error(error));
 };
 
 module.exports = database;
