@@ -6,3 +6,10 @@ const server = app.listen(process.env.PORT, () => {
     `Server is listening on http://localhost:${process.env.PORT} on ${process.env.NODE_ENV} mode.`
   );
 });
+
+process.on("unhandledRejection", (err) => {
+  logger.error(err.message);
+  console.log(`Error: ${err.message}`);
+
+  process.exit(1);
+});
