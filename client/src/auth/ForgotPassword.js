@@ -1,14 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { auth, googleAuthProvider } from "../firebase";
-import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import React, { useState } from "react";
+import { auth } from "../firebase";
+import { sendPasswordResetEmail } from "firebase/auth";
+import { MailOutlined, SaveOutlined } from "@ant-design/icons";
 import { toast } from "react-toastify";
 import { Button, Input, Form } from "antd";
-import { MailOutlined, SaveOutlined } from "@ant-design/icons";
-import { useDispatch } from "react-redux";
-import { loginUser } from "../redux/actions/user_action";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 
 const ForgotPassword = () => {
   const [user, setUser] = useState({
@@ -16,34 +12,22 @@ const ForgotPassword = () => {
     password: "",
   });
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    alert(process.env.REACT_APP_FORGOT_PASSWORD_REDIRECT_URL);
+    const config = {
+      url: process.env.REACT_APP_FORGOT_PASSWORD_REDIRECT_URL,
+      handleCodeInApp: true,
+    };
 
     try {
-      const result = await signInWithEmailAndPassword(
-        auth,
-        user.email,
-        user.password
-      );
+      await sendPasswordResetEmail(auth, user.email, config);
 
-      dispatch(loginUser(result.user));
-      navigate("/");
+      toast.success("Check your email for password reset link ");
     } catch (error) {
-      console.log(error);
       toast.error(error.message);
     }
-  };
-
-  const handleGoogleSubmit = async (e) => {
-    signInWithPopup(auth, googleAuthProvider)
-      .then(async (result) => {
-        const { user } = result;
-        dispatch(loginUser(user));
-        navigate("/");
-      })
-      .catch((err) => toast.err(err.message));
   };
 
   const onChange = ({ target: input }) => {
