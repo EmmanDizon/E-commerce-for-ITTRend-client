@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import { useAlert } from "react-alert";
 import { Button, Input, Form } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,6 +13,8 @@ const Login = function () {
     password: "",
   });
 
+  const alert = useAlert();
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -22,11 +24,12 @@ const Login = function () {
 
   useEffect(() => {
     if (isAuthenticated) {
+      alert.success("Login success !");
       navigate("/");
     }
 
     if (error) {
-      toast.error(error);
+      alert.error(error);
       dispatch(clearErrors());
     }
   }, [dispatch, isAuthenticated, error]);

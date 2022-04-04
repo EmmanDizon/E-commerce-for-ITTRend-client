@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { sendPasswordResetEmail } from "firebase/auth";
 import { MailOutlined, SaveOutlined } from "@ant-design/icons";
 import { toast } from "react-toastify";
 import { Button, Input, Form } from "antd";
@@ -14,17 +13,6 @@ const ForgotPassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    alert(process.env.REACT_APP_FORGOT_PASSWORD_REDIRECT_URL);
-    const config = {
-      url: process.env.REACT_APP_FORGOT_PASSWORD_REDIRECT_URL,
-      handleCodeInApp: true,
-    };
-
-    try {
-      toast.success("Check your email for password reset link ");
-    } catch (error) {
-      toast.error(error.message);
-    }
   };
 
   const onChange = ({ target: input }) => {
