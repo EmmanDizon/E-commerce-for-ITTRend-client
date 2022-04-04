@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { auth } from "../firebase";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { MailOutlined, SaveOutlined } from "@ant-design/icons";
 import { toast } from "react-toastify";
@@ -22,8 +21,6 @@ const ForgotPassword = () => {
     };
 
     try {
-      await sendPasswordResetEmail(auth, user.email, config);
-
       toast.success("Check your email for password reset link ");
     } catch (error) {
       toast.error(error.message);

@@ -1,48 +1,39 @@
-import React, { useState } from "react";
-import { auth, googleAuthProvider } from "../firebase";
-import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Button, Input, Form } from "antd";
-import { MailOutlined, GoogleOutlined, LockOutlined } from "@ant-design/icons";
-import { useDispatch } from "react-redux";
-import { loginUser } from "../redux/actions/user_action";
+import { MailOutlined, LockOutlined } from "@ant-design/icons";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser, clearErrors } from "../redux/actions/user_action";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-const Login = () => {
+const Login = function () {
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const { isAuthenticated, error, loading } = useSelector(
+    (state) => state.auth
+  );
 
-    try {
-      const result = await signInWithEmailAndPassword(
-        auth,
-        user.email,
-        user.password
-      );
-
-      dispatch(loginUser(result.user));
+  useEffect(() => {
+    if (isAuthenticated) {
       navigate("/");
-    } catch (error) {
-      console.log(error);
-      toast.error(error.message);
     }
-  };
 
-  const handleGoogleSubmit = async (e) => {
-    signInWithPopup(auth, googleAuthProvider)
-      .then(async (result) => {
-        const { user } = result;
-        dispatch(loginUser(user));
-        navigate("/");
-      })
-      .catch((err) => toast.err(err.message));
+    if (error) {
+      toast.error(error);
+      dispatch(clearErrors());
+    }
+  }, [dispatch, isAuthenticated, error]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(loginUser(user));
   };
 
   const onChange = ({ target: input }) => {
@@ -88,18 +79,6 @@ const Login = () => {
           size="large"
         >
           Login with Email & Password
-        </Button>
-
-        <Button
-          onClick={handleGoogleSubmit}
-          type="danger submit"
-          className="mt-2"
-          block
-          shape="round"
-          icon={<GoogleOutlined />}
-          size="large"
-        >
-          Login with Gmail
         </Button>
 
         <Link to="/forgot/password" className="text-danger float-right">

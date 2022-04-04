@@ -8,29 +8,31 @@ import {
   SettingOutlined,
 } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
-
 import { useSelector } from "react-redux";
-import { auth } from "../../firebase";
 import { useDispatch } from "react-redux";
-import { logoutUser } from "../../redux/actions/user_action";
+import { logout } from "../../redux/actions/user_action";
 
 const { SubMenu } = Menu;
 
 const Header = () => {
   const [current, setCurrent] = useState("home");
-  const user = useSelector((state) => state.user);
+  const { user, loading } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const hasUser = () => {
+    if (typeof user !== "undefined") {
+      return Object.keys(user).length === 0 ? false : true;
+    }
+    return false;
+  };
 
   const handleClick = ({ key }) => {
     setCurrent(key);
   };
 
-  const logout = () => {
-    auth.signOut();
-    dispatch(logoutUser());
-
-    navigate("/login");
+  const logoutHandler = () => {
+    dispatch(logout());
   };
 
   return (
@@ -39,20 +41,24 @@ const Header = () => {
         <Link to="/">Home</Link>
       </Menu.Item>
 
-      {user && (
+      {hasUser() && (
         <SubMenu
           key="username"
           icon={<SettingOutlined />}
-          title={user !== null ? user.email.split("@")[0] : "Username"}
+          title={"Username"}
           style={{ marginLeft: "auto" }}
         >
-          <Menu.Item key="logout" icon={<LogoutOutlined />} onClick={logout}>
+          <Menu.Item
+            key="logout"
+            icon={<LogoutOutlined />}
+            onClick={logoutHandler}
+          >
             Logout
           </Menu.Item>
         </SubMenu>
       )}
 
-      {!user && (
+      {!hasUser() && (
         <Menu.Item
           key="login"
           icon={<UserOutlined />}
@@ -61,7 +67,7 @@ const Header = () => {
           <Link to="/login">Login</Link>
         </Menu.Item>
       )}
-      {!user && (
+      {!hasUser() && (
         <Menu.Item key="register" icon={<UserAddOutlined />}>
           <Link to="/register">Register</Link>
         </Menu.Item>
