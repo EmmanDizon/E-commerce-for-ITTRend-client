@@ -1,5 +1,4 @@
 import React from "react";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Routes, Route } from "react-router-dom";
 
@@ -9,12 +8,16 @@ import Login from "./auth/Login";
 import Register from "./auth/Register";
 import ForgotPassword from "./auth/ForgotPassword";
 
+import ProtectRoutes from "./components/route/ProtectRoute";
+
 const App = () => {
   return (
     <React.Fragment>
       <Header />
-      <ToastContainer />
       <Routes>
+        <Route element={<ProtectRoutes />}>
+          {/* insert the routes you want to proctect dito*/}
+        </Route>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

@@ -7,7 +7,7 @@ import {
   LogoutOutlined,
   SettingOutlined,
 } from "@ant-design/icons";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { logout } from "../../redux/actions/user_action";
@@ -17,7 +17,7 @@ const { SubMenu } = Menu;
 const Header = () => {
   const [current, setCurrent] = useState("home");
   const { user, loading } = useSelector((state) => state.auth);
-  const navigate = useNavigate();
+
   const dispatch = useDispatch();
 
   const hasUser = () => {
