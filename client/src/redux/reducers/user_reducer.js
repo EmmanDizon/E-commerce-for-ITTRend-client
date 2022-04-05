@@ -6,6 +6,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT_SUCCESS,
+  CLEAR_ERRORS,
 } from "../constants";
 export const authReducer = (state = { user: {} }, action) => {
   switch (action.type) {
@@ -39,6 +40,12 @@ export const authReducer = (state = { user: {} }, action) => {
       return {
         loading: false,
         isAuthenticated: false,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
       };
     default:
       return state;

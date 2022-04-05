@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useAlert } from "react-alert";
-import { Button, Input, Form } from "antd";
-import { MailOutlined, LockOutlined } from "@ant-design/icons";
+import { Button, Input, Form, Card, Typography, Image, Space } from "antd";
+import { LoginOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, clearErrors } from "../redux/actions/user_action";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
+const { Title } = Typography;
+
 const Login = function () {
+  const [form] = Form.useForm();
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -34,69 +37,97 @@ const Login = function () {
     }
   }, [dispatch, isAuthenticated, error]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const onFinish = (values) => {
+    const user = {
+      ...values,
+    };
+
     dispatch(loginUser(user));
-  };
-
-  const onChange = ({ target: input }) => {
-    const data = { ...user };
-    data[input.name] = input.value;
-
-    setUser(data);
   };
 
   const LoginForm = () => {
     return (
-      <Form>
-        <Input
-          type="email"
-          name="email"
-          prefix={<MailOutlined />}
-          placeholder="Email"
-          value={user.email}
-          onChange={onChange}
-          size="large"
-          autoFocus
-        />
+      <>
+        <Form name="signup" initialValues={{}} onFinish={onFinish} form={form}>
+          <Card>
+            <Space
+              direction="horizontal"
+              style={{ width: "100%", justifyContent: "center" }}
+            >
+              <Image src="/images/logo.png" height={150} />
+            </Space>
 
-        <Input.Password
-          name="password"
-          password="password"
-          prefix={<LockOutlined />}
-          placeholder="Password"
-          className="mt-3"
-          value={user.password}
-          size="large"
-          onChange={onChange}
-        />
+            <Form.Item
+              name="email"
+              hasFeedback
+              label="Email address"
+              labelCol={{ span: 24 }}
+              wrapperCol={{ span: 24 }}
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your email.",
+                },
+                {
+                  type: "email",
+                  message: "Your email is invalid.",
+                },
+              ]}
+            >
+              <Input
+                placeholder="Email"
+                size="large"
+                prefix={<MailOutlined />}
+              />
+            </Form.Item>
 
-        <Button
-          onClick={handleSubmit}
-          type="primary"
-          className="mt-2"
-          block
-          disabled={!user.email || user.password.length < 6}
-          shape="round"
-          icon={<MailOutlined />}
-          size="large"
-        >
-          Login with Email & Password
-        </Button>
+            <Form.Item
+              name="password"
+              hasFeedback
+              label="Password"
+              labelCol={{ span: 24 }}
+              wrapperCol={{ span: 24 }}
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your password.",
+                },
+                { min: 6, message: "Password must be minimum 6 characters." },
+              ]}
+            >
+              <Input.Password
+                placeholder="Password"
+                size="large"
+                prefix={<LockOutlined />}
+              />
+            </Form.Item>
+            <Link
+              to="/forgot/password"
+              className="text-danger float-right mb-3"
+            >
+              Forgot Password
+            </Link>
 
-        <Link to="/forgot/password" className="text-danger float-right">
-          Forgot Password
-        </Link>
-      </Form>
+            <Button
+              type="primary"
+              block
+              htmlType="submit"
+              shape="round"
+              icon={<LoginOutlined />}
+              size="large"
+            >
+              Sign In
+            </Button>
+          </Card>
+        </Form>
+      </>
     );
   };
   return (
     <div className="container p-5">
       <div className="row">
         <div className="col-md-6 offset-md-3">
-          <div className="d-flex justify-content-center align-items-center">
-            <img alt="logo" src="/images/logo.png" />
-          </div>
+          <div className="d-flex justify-content-center align-items-center"></div>
           {LoginForm()}
         </div>
       </div>

@@ -3,7 +3,7 @@ import { useAlert } from "react-alert";
 import { Form, Input, Button, Card, Typography, Row, Col } from "antd";
 import { UserAddOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
-import { register } from "../redux/actions/user_action";
+import { register, clearErrors } from "../redux/actions/user_action";
 import { useNavigate } from "react-router-dom";
 
 const { Title } = Typography;
@@ -28,6 +28,7 @@ const Register = () => {
 
     if (error) {
       alert.error(error);
+      dispatch(clearErrors());
     }
   }, [dispatch, alert, isAuthenticated, error]);
 
