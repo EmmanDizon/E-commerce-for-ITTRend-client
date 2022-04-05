@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { MailOutlined, SaveOutlined } from "@ant-design/icons";
-import { toast } from "react-toastify";
 import { Button, Input, Form } from "antd";
 import { useNavigate } from "react-router-dom";
 

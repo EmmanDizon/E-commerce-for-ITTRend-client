@@ -11,7 +11,8 @@ import { transitions, positions, Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 
 import { Provider } from "react-redux";
-import store from "./redux/store";
+import store, { persistor } from "./redux/store";
+import { PersistGate } from "redux-persist/integration/react";
 
 const options = {
   // you can also just use 'bottom center'
@@ -26,7 +27,9 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <AlertProvider template={AlertTemplate} {...options}>
-        <App />
+        <PersistGate loading={null} persistor={persistor}>
+          <App />
+        </PersistGate>
       </AlertProvider>
     </BrowserRouter>
   </Provider>,

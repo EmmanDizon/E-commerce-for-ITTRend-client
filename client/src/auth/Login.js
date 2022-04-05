@@ -1,23 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useAlert } from "react-alert";
-import { Button, Input, Form, Card, Typography, Image, Space } from "antd";
+import { Button, Input, Form, Card, Image, Space } from "antd";
 import { LoginOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, clearErrors } from "../redux/actions/user_action";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-const { Title } = Typography;
-
 const Login = function () {
   const [form] = Form.useForm();
-  const [user, setUser] = useState({
-    email: "",
-    password: "",
-  });
 
   const alert = useAlert();
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -110,6 +103,7 @@ const Login = function () {
 
             <Button
               type="primary"
+              loading={loading}
               block
               htmlType="submit"
               shape="round"

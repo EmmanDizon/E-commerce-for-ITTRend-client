@@ -2,8 +2,15 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { authReducer } from "./reducers/user_reducer";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
-const reducer = combineReducers({
+const persistConfig = {
+  key: "main-root",
+  storage,
+};
+
+const reducers = combineReducers({
   auth: authReducer,
 });
 
@@ -11,10 +18,15 @@ const initialState = {};
 
 const middleware = [thunk];
 
+const persistedReducers = persistReducer(persistConfig, reducers);
+
 const store = createStore(
-  reducer,
+  persistedReducers,
   initialState,
   composeWithDevTools(applyMiddleware(...middleware))
 );
 
+const persistor = persistStore(store);
+
+export { persistor };
 export default store;
