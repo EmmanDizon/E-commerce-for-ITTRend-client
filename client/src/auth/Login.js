@@ -43,7 +43,11 @@ const Login = function () {
     return (
       <>
         <Form name="signup" initialValues={{}} onFinish={onFinish} form={form}>
-          <Card>
+          <Card
+            style={{
+              borderRadius: "20px",
+            }}
+          >
             <Space
               direction="horizontal"
               style={{ width: "100%", justifyContent: "center" }}
@@ -96,13 +100,6 @@ const Login = function () {
               />
             </Form.Item>
 
-            <Link
-              href="/forgot/password"
-              className="text-danger float-right mb-2"
-            >
-              Forgot Password
-            </Link>
-
             <Button
               type="primary"
               loading={loading}
@@ -118,6 +115,13 @@ const Login = function () {
             <Text secondary>
               Don't have an account? <Link href="/register">Register</Link>
             </Text>
+
+            <Link
+              href="/forgot/password"
+              className="text-danger float-right mb-2"
+            >
+              Forgot Password
+            </Link>
           </Card>
         </Form>
       </>

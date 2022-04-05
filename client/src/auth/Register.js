@@ -47,7 +47,11 @@ const Register = () => {
           CREATE ACCOUNT
         </Title>
 
-        <Card>
+        <Card
+          style={{
+            borderRadius: "20px",
+          }}
+        >
           <Row gutter={{ xs: 8, sm: 16 }}>
             <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 12 }}>
               <Form.Item
