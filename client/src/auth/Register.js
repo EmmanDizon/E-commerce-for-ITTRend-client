@@ -1,33 +1,42 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useAlert } from "react-alert";
-import { Form, Input, Button } from "antd";
-import {
-  FormOutlined,
-  MailOutlined,
-  UserOutlined,
-  LockOutlined,
-} from "@ant-design/icons";
-import http from "../service/http";
+import { Form, Input, Button, Card, Typography, Row, Col } from "antd";
+import { UserAddOutlined } from "@ant-design/icons";
+import { useDispatch, useSelector } from "react-redux";
+import { register } from "../redux/actions/user_action";
+import { useNavigate } from "react-router-dom";
+
+const { Title } = Typography;
 
 const Register = () => {
   const [form] = Form.useForm();
   const alert = useAlert();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { isAuthenticated, error, loading } = useSelector(
+    (state) => state.auth
+  );
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      alert.success("Registration complete !");
+      navigate("/");
+
+      form.resetFields();
+    }
+
+    if (error) {
+      alert.error(error);
+    }
+  }, [dispatch, alert, isAuthenticated, error]);
 
   const onFinish = async (values) => {
-    try {
-      const data = {
-        ...values,
-      };
+    const data = {
+      ...values,
+    };
 
-      await http.post(
-        `${process.env.REACT_APP_NODE_PORT}/users/register`,
-        data
-      );
-      alert.success("Registration complete !");
-      form.resetFields();
-    } catch (error) {
-      alert.error(error.message);
-    }
+    dispatch(register(data));
   };
 
   const formItemLayout = {
@@ -42,125 +51,149 @@ const Register = () => {
 
   const registerForm = () => {
     return (
-      <React.Fragment>
-        <Form {...formItemLayout} onFinish={onFinish} form={form}>
+      <Form name="signup" initialValues={{}} onFinish={onFinish} form={form}>
+        <Title level={2} className="text-center" style={{ color: "#11425d" }}>
+          CREATE ACCOUNT
+        </Title>
+
+        <Card>
+          <Row gutter={{ xs: 8, sm: 16 }}>
+            <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 12 }}>
+              <Form.Item
+                name="firstname"
+                label="First name"
+                hasFeedback
+                labelCol={{ span: 24 }}
+                wrapperCol={{ span: 24 }}
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your first name.",
+                  },
+                  {
+                    min: 2,
+                    message: "Your first name must be at least 2 characters.",
+                  },
+                ]}
+              >
+                <Input placeholder="First name" size="large" />
+              </Form.Item>
+            </Col>
+            <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 12 }}>
+              <Form.Item
+                hasFeedback
+                name="lastname"
+                label="Last name"
+                labelCol={{ span: 24 }}
+                wrapperCol={{ span: 24 }}
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your last name.",
+                  },
+                  {
+                    min: 2,
+                    message: "Your last name must be at least 2 characters.",
+                  },
+                ]}
+              >
+                <Input placeholder="Last name" size="large" />
+              </Form.Item>
+            </Col>
+          </Row>
+
           <Form.Item
             name="email"
-            label="E-mail"
+            label="Email address"
+            labelCol={{ span: 24 }}
+            wrapperCol={{ span: 24 }}
+            hasFeedback
             rules={[
+              {
+                required: true,
+                message: "Please input your email.",
+              },
               {
                 type: "email",
-                message: "The input is not valid E-mail !",
-              },
-              {
-                required: true,
-                message: "Please input your E-mail !",
+                message: "Your email is invalid.",
               },
             ]}
           >
-            <Input prefix={<MailOutlined />} />
+            <Input placeholder="Email" size="large" />
           </Form.Item>
 
-          <Form.Item
-            name="name"
-            label="Full Name"
-            rules={[
-              {
-                required: true,
-                message: "• Please input your name",
-              },
-            ]}
+          <Row gutter={{ xs: 8, sm: 16 }}>
+            <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 12 }}>
+              <Form.Item
+                name="password"
+                label="Password"
+                labelCol={{ span: 24 }}
+                wrapperCol={{ span: 24 }}
+                hasFeedback
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your password.",
+                  },
+                  { min: 6, message: "Password must be minimum 6 characters." },
+                ]}
+              >
+                <Input.Password placeholder="Password" size="large" />
+              </Form.Item>
+            </Col>
+
+            <Col className="gutter-row" xs={{ span: 24 }} md={{ span: 12 }}>
+              <Form.Item
+                name="confirm"
+                label="Confirm Password"
+                labelCol={{ span: 24 }}
+                wrapperCol={{ span: 24 }}
+                dependencies={["password"]}
+                hasFeedback
+                rules={[
+                  {
+                    required: true,
+                    message: "Confirm your password.",
+                  },
+                  ({ getFieldValue }) => ({
+                    validator(_, value) {
+                      if (!value || getFieldValue("password") === value) {
+                        return Promise.resolve();
+                      }
+                      return Promise.reject(
+                        new Error(
+                          "The two passwords that you entered do not match!"
+                        )
+                      );
+                    },
+                  }),
+                ]}
+              >
+                <Input.Password placeholder="Confirm password" size="large" />
+              </Form.Item>
+            </Col>
+          </Row>
+
+          <Button
+            type="primary"
+            loading={loading}
+            className="mt-20"
+            htmlType="submit"
+            shape="round"
+            block
+            icon={<UserAddOutlined />}
+            size="large"
           >
-            <Input prefix={<UserOutlined />} />
-          </Form.Item>
-
-          <Form.Item
-            name="password"
-            label="Password"
-            rules={[
-              {
-                required: true,
-                message: "• Please enter your password",
-              },
-              () => ({
-                validator(_, value) {
-                  if (value) {
-                    if (value.length >= 6) {
-                      return Promise.resolve();
-                    }
-                    return Promise.reject(
-                      new Error("• Password must be 6 characters more")
-                    );
-                  }
-                  return Promise.reject();
-                },
-              }),
-            ]}
-            hasFeedback
-          >
-            <Input.Password prefix={<LockOutlined />} />
-          </Form.Item>
-
-          <Form.Item
-            name="confirm"
-            label="Re-type Password"
-            dependencies={["password"]}
-            hasFeedback
-            rules={[
-              {
-                required: true,
-                message: "• Please confirm your password!",
-              },
-              ({ getFieldValue }) => ({
-                validator(_, value) {
-                  if (!value || getFieldValue("password") === value) {
-                    return Promise.resolve();
-                  }
-                  return Promise.reject(
-                    new Error(
-                      "• The two passwords that you entered do not match !"
-                    )
-                  );
-                },
-              }),
-            ]}
-          >
-            <Input.Password prefix={<LockOutlined />} />
-          </Form.Item>
-
-          <Form.Item wrapperCol={{ span: 18, offset: 6 }}>
-            <Button
-              htmlType="submit"
-              type="primary"
-              block
-              shape="round"
-              icon={<FormOutlined />}
-              size="medium"
-            >
-              Register
-            </Button>
-          </Form.Item>
-        </Form>
-      </React.Fragment>
+            Sign Up
+          </Button>
+        </Card>
+      </Form>
     );
   };
   return (
     <div className="container p-5">
       <div className="row">
-        <div className="col-md-6 offset-md-3">
-          <div className="row">
-            <div>
-              <h4>
-                <i className="fa fa-user-plus"></i>
-              </h4>
-            </div>
-            <div className="ml-2">
-              <h4>Registration Form</h4>
-            </div>
-          </div>
-          <h1></h1>
-          {registerForm()}
-        </div>
+        <div className="col-md-6 offset-md-3">{registerForm()}</div>
       </div>
     </div>
   );

@@ -8,17 +8,22 @@ const { ObjectId } = mongoose.Schema;
 
 const userSchema = new mongoose.Schema(
   {
-    name: {
+    firstname: {
       type: String,
-      required: [true, "Please enter your name"],
+      required: true,
+    },
+
+    lastname: {
+      type: String,
+      required: true,
     },
 
     email: {
       type: String,
       unique: true,
-      required: [true, "Please enter your email"],
-      validate: [validator.isEmail, "Please enter valid email address"],
+      required: true,
       index: true,
+      validate: [validator.isEmail, "Please enter valid email address"],
     },
     password: {
       type: String,

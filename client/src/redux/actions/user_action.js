@@ -1,4 +1,7 @@
 import {
+  REGISTER_REQUEST,
+  REGISTER_SUCCESS,
+  REGISTER_FAIL,
   LOGIN_SUCCESS,
   LOGIN_REQUEST,
   LOGIN_FAIL,
@@ -26,6 +29,29 @@ export const loginUser = (user) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: LOGIN_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const register = (userInfo) => async (dispatch) => {
+  try {
+    dispatch({
+      type: REGISTER_REQUEST,
+    });
+
+    const { data } = await http.post(
+      `${process.env.REACT_APP_NODE_PORT}/users/register`,
+      userInfo
+    );
+
+    dispatch({
+      type: REGISTER_SUCCESS,
+      payload: data.user,
+    });
+  } catch (error) {
+    dispatch({
+      type: REGISTER_FAIL,
       payload: error.response.data.message,
     });
   }

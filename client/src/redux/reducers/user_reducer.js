@@ -1,4 +1,7 @@
 import {
+  REGISTER_REQUEST,
+  REGISTER_SUCCESS,
+  REGISTER_FAIL,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
@@ -6,11 +9,14 @@ import {
 } from "../constants";
 export const authReducer = (state = { user: {} }, action) => {
   switch (action.type) {
+    case REGISTER_REQUEST:
     case LOGIN_REQUEST:
       return {
         loading: true,
         isAuthenticated: false,
       };
+
+    case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
       return {
         ...state,
@@ -18,6 +24,8 @@ export const authReducer = (state = { user: {} }, action) => {
         isAuthenticated: true,
         user: action.payload,
       };
+
+    case REGISTER_FAIL:
     case LOGIN_FAIL:
       return {
         ...state,
