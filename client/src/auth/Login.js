@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import { useAlert } from "react-alert";
-import { Button, Input, Form, Card, Image, Space } from "antd";
+import { Button, Input, Form, Card, Image, Space, Typography } from "antd";
 import { LoginOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, clearErrors } from "../redux/actions/user_action";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+
+const { Text, Link } = Typography;
 
 const Login = function () {
   const [form] = Form.useForm();
@@ -94,9 +95,10 @@ const Login = function () {
                 prefix={<LockOutlined />}
               />
             </Form.Item>
+
             <Link
-              to="/forgot/password"
-              className="text-danger float-right mb-3"
+              href="/forgot/password"
+              className="text-danger float-right mb-2"
             >
               Forgot Password
             </Link>
@@ -112,6 +114,10 @@ const Login = function () {
             >
               Sign In
             </Button>
+
+            <Text secondary>
+              Don't have an account? <Link href="/register">Register</Link>
+            </Text>
           </Card>
         </Form>
       </>

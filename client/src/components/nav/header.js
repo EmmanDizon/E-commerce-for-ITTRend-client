@@ -16,7 +16,7 @@ const { SubMenu } = Menu;
 
 const Header = () => {
   const [current, setCurrent] = useState("home");
-  const { user, loading } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
 
@@ -65,11 +65,6 @@ const Header = () => {
           style={{ marginLeft: "auto" }}
         >
           <Link to="/login">Login</Link>
-        </Menu.Item>
-      )}
-      {!hasUser() && (
-        <Menu.Item key="register" icon={<UserAddOutlined />}>
-          <Link to="/register">Register</Link>
         </Menu.Item>
       )}
     </Menu>

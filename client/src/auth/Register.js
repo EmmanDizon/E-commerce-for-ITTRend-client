@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { register, clearErrors } from "../redux/actions/user_action";
 import { useNavigate } from "react-router-dom";
 
-const { Title } = Typography;
+const { Title, Text, Link } = Typography;
 
 const Register = () => {
   const [form] = Form.useForm();
@@ -38,16 +38,6 @@ const Register = () => {
     };
 
     dispatch(register(data));
-  };
-
-  const formItemLayout = {
-    labelCol: {
-      xs: { span: 24 },
-      sm: { span: 6 },
-    },
-    wrapperCol: {
-      xs: { span: 24 },
-    },
   };
 
   const registerForm = () => {
@@ -187,6 +177,10 @@ const Register = () => {
           >
             Sign Up
           </Button>
+
+          <Text secondary>
+            Already have an account? <Link href="/login">Log in</Link>{" "}
+          </Text>
         </Card>
       </Form>
     );
