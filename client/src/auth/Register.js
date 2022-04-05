@@ -1,5 +1,5 @@
 import React from "react";
-import { toast } from "react-toastify";
+import { useAlert } from "react-alert";
 import { Form, Input, Button } from "antd";
 import {
   FormOutlined,
@@ -11,6 +11,7 @@ import http from "../service/http";
 
 const Register = () => {
   const [form] = Form.useForm();
+  const alert = useAlert();
 
   const onFinish = async (values) => {
     try {
@@ -22,10 +23,10 @@ const Register = () => {
         `${process.env.REACT_APP_NODE_PORT}/users/register`,
         data
       );
-      toast.success(`Registration Success !`);
+      alert.success("Registration complete !");
       form.resetFields();
     } catch (error) {
-      toast.error(error.message);
+      alert.error(error.message);
     }
   };
 
