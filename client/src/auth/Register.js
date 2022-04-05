@@ -172,7 +172,7 @@ const Register = () => {
           <Button
             type="primary"
             loading={loading}
-            className="mt-20"
+            className="mt-20 mb-2"
             htmlType="submit"
             shape="round"
             block

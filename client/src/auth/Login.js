@@ -104,6 +104,7 @@ const Login = function () {
               type="primary"
               loading={loading}
               block
+              className="mb-2"
               htmlType="submit"
               shape="round"
               icon={<LoginOutlined />}
