@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import { MailOutlined, SaveOutlined } from "@ant-design/icons";
 import { Button, Input, Form } from "antd";
-import { useNavigate } from "react-router-dom";
 
 const ForgotPassword = () => {
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();

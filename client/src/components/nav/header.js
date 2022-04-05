@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Menu } from "antd";
 import {
   HomeOutlined,
-  UserAddOutlined,
   UserOutlined,
   LogoutOutlined,
   SettingOutlined,
