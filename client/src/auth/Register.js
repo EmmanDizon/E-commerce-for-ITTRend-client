@@ -14,14 +14,14 @@ const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { isAuthenticated, error, loading } = useSelector(
+  const { isDoneRegistration, error, loading } = useSelector(
     (state) => state.auth
   );
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isDoneRegistration) {
       alert.success("Registration complete !");
-      navigate("/");
+      navigate("/login");
 
       form.resetFields();
     }
@@ -30,7 +30,7 @@ const Register = () => {
       alert.error(error);
       dispatch(clearErrors());
     }
-  }, [dispatch, alert, isAuthenticated, error]);
+  }, [dispatch, alert, isDoneRegistration, error]);
 
   const onFinish = async (values) => {
     const data = {
