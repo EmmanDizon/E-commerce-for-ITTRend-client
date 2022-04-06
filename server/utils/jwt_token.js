@@ -1,3 +1,5 @@
+const _ = require("lodash");
+
 const sendToken = (user, statusCode, res) => {
   const token = user.generateJwtToken();
   const options = {
@@ -8,10 +10,21 @@ const sendToken = (user, statusCode, res) => {
   };
 
   res.cookie("token", token, options);
+
+  const result = _.pick(user, [
+    "_id",
+    "firstname",
+    "lastname",
+    "email",
+    "role",
+    "cart",
+    "wishList",
+  ]);
+
   res.status(statusCode).json({
     success: true,
     token,
-    user,
+    user: result,
   });
 };
 

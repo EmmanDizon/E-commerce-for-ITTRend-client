@@ -3,8 +3,11 @@ import { Menu } from "antd";
 import {
   HomeOutlined,
   UserOutlined,
+  LoginOutlined,
   LogoutOutlined,
   SettingOutlined,
+  OrderedListOutlined,
+  LineChartOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -37,8 +40,8 @@ const Header = () => {
     setCurrent(key);
   };
 
-  const logoutHandler = () => {
-    dispatch(logout());
+  const onClickHandler = ({ key }) => {
+    key = key === "logout" ? dispatch(logout()) : "";
   };
 
   return (
@@ -55,9 +58,32 @@ const Header = () => {
           style={{ marginLeft: "auto" }}
         >
           <Menu.Item
+            key="dashboard"
+            icon={<LineChartOutlined />}
+            hidden={user["user"].role === "admin" ? false : true}
+            onClick={onClickHandler}
+          >
+            Dashboard
+          </Menu.Item>
+
+          <Menu.Item
+            key="orders"
+            icon={<OrderedListOutlined />}
+            onClick={onClickHandler}
+          >
+            My Orders
+          </Menu.Item>
+          <Menu.Item
+            key="profile"
+            icon={<UserOutlined />}
+            onClick={onClickHandler}
+          >
+            My Profile
+          </Menu.Item>
+          <Menu.Item
             key="logout"
             icon={<LogoutOutlined />}
-            onClick={logoutHandler}
+            onClick={onClickHandler}
           >
             Logout
           </Menu.Item>
@@ -67,7 +93,7 @@ const Header = () => {
       {!hasUser() && (
         <Menu.Item
           key="login"
-          icon={<UserOutlined />}
+          icon={<LoginOutlined />}
           style={{ marginLeft: "auto" }}
         >
           <Link to="/login">Login</Link>
