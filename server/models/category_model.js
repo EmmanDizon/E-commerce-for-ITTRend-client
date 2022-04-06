@@ -8,12 +8,6 @@ const categorySchema = new mongoose.Schema(
       trim: true,
       minlength: [3, "Minimum of 3 characters."],
     },
-    slug: {
-      type: String,
-      unique: true,
-      lowercase: true,
-      index: true,
-    },
   },
   { timestamps: true }
 );

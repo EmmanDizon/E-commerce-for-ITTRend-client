@@ -1,7 +1,6 @@
 const Category = require("../models/category_model");
 const TryCatch = require("../middlewares/handle_try_catch");
 const ErrorHandler = require("../utils/error_handler");
-const slugify = require("slugify");
 
 exports.getCategories = TryCatch(async (req, res, next) => {
   const category = await Category.find().sort({ createdAt: -1 }); // SELECT * FROM categories ORDER BY createdAt DESC
@@ -12,8 +11,18 @@ exports.getCategories = TryCatch(async (req, res, next) => {
   });
 });
 
+exports.getSingleCategory = TryCatch(async (req, res, next) => {
+  const category = await Category.findById(req.params.id); // SELECT * FROM categories WHERE Id = ?
+
+  if (!category) return next(new ErrorHandler("Category not found.", 404));
+
+  res.status(200).json({
+    success: true,
+    category,
+  });
+});
+
 exports.createCategories = TryCatch(async (req, res, next) => {
-  req.body.slug = slugify(req.body.name);
   const category = await Category.create(req.body);
 
   res.status(200).json({

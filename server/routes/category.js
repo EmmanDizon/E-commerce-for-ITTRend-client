@@ -5,6 +5,7 @@ const {
   updateCategory,
   getCategories,
   deleteCategory,
+  getSingleCategory,
 } = require("../controllers/category_controller");
 const {
   isAuthenticatedUser,
@@ -14,6 +15,7 @@ const {
 router.route("/create_categories").post(createCategories);
 
 router.route("/get_categories").get(isAuthenticatedUser, getCategories);
+router.route("/get_category/:id").get(isAuthenticatedUser, getSingleCategory);
 
 router
   .route("/update_category")
