@@ -1,9 +1,10 @@
 const Category = require("../models/category_model");
 const TryCatch = require("../middlewares/handle_try_catch");
 const ErrorHandler = require("../utils/error_handler");
+const slugify = require("slugify");
 
 exports.getCategories = TryCatch(async (req, res, next) => {
-  const category = await Category.create(req.body);
+  const category = await Category.find().sort({ createdAt: -1 }); // SELECT * FROM categories ORDER BY createdAt DESC
 
   res.status(200).json({
     success: true,
@@ -12,6 +13,7 @@ exports.getCategories = TryCatch(async (req, res, next) => {
 });
 
 exports.createCategories = TryCatch(async (req, res, next) => {
+  req.body.slug = slugify(req.body.name);
   const category = await Category.create(req.body);
 
   res.status(200).json({
