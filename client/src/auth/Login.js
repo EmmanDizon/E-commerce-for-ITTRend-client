@@ -20,11 +20,6 @@ const Login = function () {
   );
 
   useEffect(() => {
-    if (isAuthenticated) {
-      alert.success("Login success !");
-      navigate("/");
-    }
-
     if (error) {
       alert.error(error);
       dispatch(clearErrors());
@@ -113,7 +108,7 @@ const Login = function () {
               Sign In
             </Button>
 
-            <Text secondary>
+            <Text seccondary={"true"}>
               Don't have an account? <Link href="/register">Register</Link>
             </Text>
 

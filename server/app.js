@@ -8,10 +8,6 @@ const cors = require("cors");
 const express = require("express");
 const app = express();
 
-const products = require("./routes/products");
-const auth = require("./routes/auth");
-
-const errorHandling = require("./middlewares/errors");
 const errorRouteHandling = require("./middlewares/error_routes");
 
 app.use(express.json());
@@ -20,10 +16,7 @@ app.use(morgan("dev"));
 app.use(cookieParser());
 app.use(cors());
 
-app.use("/api/products", products);
-app.use("/api/users", auth);
-
-app.use(errorHandling);
+app.use("/", require("./Initialize_routes"));
 errorRouteHandling(app);
 
 module.exports = app;

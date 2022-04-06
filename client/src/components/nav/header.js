@@ -26,6 +26,13 @@ const Header = () => {
     return false;
   };
 
+  const username = () => {
+    if (hasUser()) {
+      const info = user["user"];
+      return info.firstname.split(" ")[0] + " " + info.lastname;
+    }
+  };
+
   const handleClick = ({ key }) => {
     setCurrent(key);
   };
@@ -44,7 +51,7 @@ const Header = () => {
         <SubMenu
           key="username"
           icon={<SettingOutlined />}
-          title={"Username"}
+          title={username()}
           style={{ marginLeft: "auto" }}
         >
           <Menu.Item

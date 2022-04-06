@@ -9,6 +9,7 @@ import Register from "./auth/Register";
 import ForgotPassword from "./auth/ForgotPassword";
 
 import ProtectRoutes from "./components/route/ProtectRoute";
+import AuthRestrictionRoute from "./components/route/AuthRestrictionRoute";
 
 const App = () => {
   return (
@@ -16,13 +17,17 @@ const App = () => {
       <Header />
       <Routes>
         <Route element={<ProtectRoutes />}>
-          {/* insert the routes you want to proctect dito*/}
+          {/*routes you want to proctect if the user is not log in*/}
+        </Route>
+        <Route element={<AuthRestrictionRoute />}>
+          {/*routes restricted if the user is log in*/}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/forgot/password" element={<ForgotPassword />} />
         </Route>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/forgot/password" element={<ForgotPassword />} />
-        <Route path="*" element={< Page404/>} />
+
+        <Route path="*" element={<Page404 />} />
       </Routes>
     </React.Fragment>
   );

@@ -182,7 +182,7 @@ const Register = () => {
             Sign Up
           </Button>
 
-          <Text secondary>
+          <Text seccondary={"true"}>
             Already have an account? <Link href="/login">Log in</Link>{" "}
           </Text>
         </Card>
