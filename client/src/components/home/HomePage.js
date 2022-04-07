@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ProductCard from "../cards/ProductCard";
 import http from "../../service/http";
 import Loader from "../../components/layout/loader";
-import { Row, Col } from "antd";
+import { Row, Col, Empty } from "antd";
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
@@ -26,14 +26,26 @@ const HomePage = () => {
         <Loader />
       ) : (
         <>
-          <Row>
-            {products.map((product) => {
-              return (
-                <Col span={6} xs={24} xl={8} key={product._id} className="p-5">
-                  <ProductCard product={product} />
-                </Col>
-              );
-            })}
+          <Row align="center">
+            {products.length > 0 ? (
+              <>
+                {products.map((product) => {
+                  return (
+                    <Col
+                      span={6}
+                      xs={24}
+                      xl={8}
+                      key={product._id}
+                      className="p-5"
+                    >
+                      <ProductCard product={product} />
+                    </Col>
+                  );
+                })}
+              </>
+            ) : (
+              <Empty className="p-5" />
+            )}
           </Row>
         </>
       )}

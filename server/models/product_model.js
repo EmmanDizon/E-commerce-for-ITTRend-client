@@ -61,7 +61,7 @@ const productSchema = new mongoose.Schema(
           type: String,
           required: true,
         },
-        rating: {
+        ratings: {
           type: Number,
           required: true,
         },
@@ -73,7 +73,10 @@ const productSchema = new mongoose.Schema(
     ],
     images: [
       {
-        type: Array,
+        url: {
+          type: String,
+          required: true,
+        },
       },
     ],
 
