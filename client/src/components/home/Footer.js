@@ -28,7 +28,7 @@ const Footer = () => {
               <i className="fas fa-fax"></i>
             </div>
             <h5>TEL NO.</h5>
-            <p>0736 230 063</p>
+            <p>N/A</p>
           </div>
         </div>
       </div>

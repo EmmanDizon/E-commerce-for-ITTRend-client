@@ -19,7 +19,7 @@ export const showAverage = (p) => {
         <StarRating
           starDimension="20px"
           starSpacing="2px"
-          starRatedColor="blue"
+          starRatedColor="rgb(19,69,149)"
           rating={result}
           editing={false}
         />
