@@ -1,12 +1,14 @@
 const mongoose = require("mongoose");
 
+const { ObjectId } = mongoose.Schema;
+
 const productSchema = new mongoose.Schema(
   {
     name: {
       type: String,
       required: [true, "Please enter product name"],
       trim: true,
-      maxlength: [100, "Cannot exceed 100 characters"],
+      maxlength: [50, "Cannot exceed 100 characters"],
     },
     price: {
       type: Number,
@@ -34,10 +36,26 @@ const productSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    category: {
+      type: ObjectId,
+      ref: "categories",
+    },
+    subcategory: [
+      {
+        type: ObjectId,
+        ref: "sub",
+      },
+    ],
+    sold: {
+      type: Number,
+      default: 0,
+    },
+
     reviews: [
       {
-        userId: {
-          type: mongoose.Schema.ObjectId,
+        postedBy: {
+          type: ObjectId,
+          ref: "users",
         },
         name: {
           type: String,
@@ -53,7 +71,18 @@ const productSchema = new mongoose.Schema(
         },
       },
     ],
+    images: [
+      {
+        type: Array,
+      },
+    ],
+
+    brand: {
+      type: String,
+      enum: ["Apple", "Samsung", "Microsoft", "Lenovo", "ASUS"],
+    },
   },
+
   { timestamps: true }
 );
 

@@ -14,6 +14,8 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { logout } from "../../redux/actions/user_action";
 
+import "../../App.css";
+
 const { SubMenu } = Menu;
 
 const Header = () => {
@@ -63,7 +65,7 @@ const Header = () => {
             hidden={user["user"].role === "admin" ? false : true}
             onClick={onClickHandler}
           >
-            Dashboard
+            <Link to="/dashboard">Dashboard</Link>
           </Menu.Item>
 
           <Menu.Item

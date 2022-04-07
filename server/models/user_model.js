@@ -25,6 +25,11 @@ const userSchema = new mongoose.Schema(
       index: true,
       validate: [validator.isEmail, "Please enter valid email address"],
     },
+    contactno: {
+      type: Number,
+      minlength: 11,
+      maxlength: 11,
+    },
     password: {
       type: String,
       required: [true, "Please enter your password"],

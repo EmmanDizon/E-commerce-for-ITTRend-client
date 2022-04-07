@@ -12,7 +12,9 @@ const {
   authorizeRoles,
 } = require("../middlewares/authentication");
 
-router.route("/create_categories").post(createCategories);
+router
+  .route("/create_categories")
+  .post(isAuthenticatedUser, authorizeRoles(), createCategories);
 
 router.route("/get_categories").get(isAuthenticatedUser, getCategories);
 router.route("/get_category/:id").get(isAuthenticatedUser, getSingleCategory);

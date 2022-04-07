@@ -1,6 +1,15 @@
 import React, { useEffect } from "react";
 import { useAlert } from "react-alert";
-import { Form, Input, Button, Card, Typography, Row, Col } from "antd";
+import {
+  Form,
+  Input,
+  Button,
+  Card,
+  Typography,
+  Row,
+  Col,
+  InputNumber,
+} from "antd";
 import { UserAddOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { register, clearErrors } from "../redux/actions/user_action";
@@ -14,23 +23,14 @@ const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { isDoneRegistration, error, loading } = useSelector(
-    (state) => state.auth
-  );
+  const { error, loading } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (isDoneRegistration) {
-      alert.success("Registration complete !");
-      navigate("/login");
-
-      form.resetFields();
-    }
-
     if (error) {
       alert.error(error);
       dispatch(clearErrors());
     }
-  }, [dispatch, alert, isDoneRegistration, error]);
+  }, [dispatch, alert, error]);
 
   const onFinish = async (values) => {
     const data = {
@@ -38,6 +38,8 @@ const Register = () => {
     };
 
     dispatch(register(data));
+    alert.success("Registration complete !");
+    navigate("/login");
   };
 
   const registerForm = () => {
@@ -115,6 +117,22 @@ const Register = () => {
             ]}
           >
             <Input placeholder="Email" size="large" />
+          </Form.Item>
+
+          <Form.Item
+            name="contactno"
+            label="Contact No."
+            labelCol={{ span: 24 }}
+            wrapperCol={{ span: 24 }}
+            hasFeedback
+            rules={[
+              {
+                required: true,
+                message: "Please input your mobile no.",
+              },
+            ]}
+          >
+            <Input />
           </Form.Item>
 
           <Row gutter={{ xs: 8, sm: 16 }}>

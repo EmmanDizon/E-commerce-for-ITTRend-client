@@ -1,9 +1,8 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 
-import Header from "./components/nav/header";
-import Home from "./pages/Home";
-import Page404 from "./pages/Page404";
+import Home from "./screens/Home";
+import Page404 from "./screens/Page404";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
 import ForgotPassword from "./auth/ForgotPassword";
@@ -11,10 +10,11 @@ import ForgotPassword from "./auth/ForgotPassword";
 import ProtectRoutes from "./components/route/ProtectRoute";
 import AuthRestrictionRoute from "./components/route/AuthRestrictionRoute";
 
+import "./App.css";
+
 const App = () => {
   return (
     <React.Fragment>
-      <Header />
       <Routes>
         <Route element={<ProtectRoutes />}>
           {/*routes you want to proctect if the user is not log in*/}
