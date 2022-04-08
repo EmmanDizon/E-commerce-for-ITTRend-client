@@ -18,12 +18,22 @@ exports.getProducts = TryCatch(async (req, res, next) => {
   const currentPage = page || 1;
   const skip = (currentPage - 1) * resPerPage;
 
-  const product = await Product.find().skip(skip).limit(resPerPage);
+  const products = await Product.find().skip(skip).limit(resPerPage);
   const productsCount = await Product.countDocuments();
 
   res.status(200).json({
     success: true,
-    product,
+    products,
     productsCount,
+  });
+});
+
+exports.getProduct = TryCatch(async (req, res, next) => {
+  const product = await Product.findById(req.params.id);
+
+  res.status(200).json({
+    success: true,
+    product,
+    reviews: product.reviews,
   });
 });

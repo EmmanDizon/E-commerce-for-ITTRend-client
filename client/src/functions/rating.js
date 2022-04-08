@@ -1,5 +1,6 @@
 import React from "react";
 import StarRating from "react-star-ratings";
+import Rating from "../components/layout/StarRating";
 
 export const showAverage = (p) => {
   let ratingsArray = p && p.reviews;
@@ -16,14 +17,12 @@ export const showAverage = (p) => {
   return (
     <div className="text-center pt-1 pb-3">
       <span>
-        <StarRating
+        <Rating
           starDimension="20px"
           starSpacing="2px"
           starRatedColor="rgb(19,69,149)"
           rating={result}
-          editing={false}
         />
-        ({p.reviews.length})
       </span>
     </div>
   );

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ProductCard from "../cards/ProductCard";
+import ProductsCard from "../cards/ProductsCard";
 import http from "../../service/http";
 import Loader from "../../components/layout/loader";
 import { Row, Col, Empty, Pagination } from "antd";
@@ -20,7 +20,7 @@ const HomePage = () => {
       { page }
     );
 
-    setProducts(data.product);
+    setProducts(data.products);
     setProductsCount(data.productsCount);
 
     setLoading(false);
@@ -38,23 +38,35 @@ const HomePage = () => {
   };
   return (
     <>
-      <div className="container">
-        <Row align="center">
-          {products.map((product) => {
-            return (
-              <Col span={6} xs={24} xl={8} key={product._id} className="p-5">
-                <ProductCard product={product} />
-              </Col>
-            );
-          })}
-        </Row>
-      </div>
-      <Pagination
-        style={{ textAlign: "center" }}
-        defaultCurrent={page}
-        onChange={onPageChange}
-        total={totalPage()}
-      />
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          <div className="container">
+            <Row align="center">
+              {products.map((product) => {
+                return (
+                  <Col
+                    span={6}
+                    xs={24}
+                    xl={8}
+                    key={product._id}
+                    className="p-5"
+                  >
+                    <ProductsCard product={product} />
+                  </Col>
+                );
+              })}
+            </Row>
+          </div>
+          <Pagination
+            style={{ textAlign: "center" }}
+            defaultCurrent={page}
+            onChange={onPageChange}
+            total={totalPage()}
+          />
+        </>
+      )}
     </>
   );
 };

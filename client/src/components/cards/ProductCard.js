@@ -1,42 +1,43 @@
 import React from "react";
 import { Card } from "antd";
-import { EyeOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import Meta from "antd/lib/card/Meta";
-import { showAverage } from "../../functions/rating";
+import { HeartOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import ProductListItems from "./ProductListItems";
+import CommentSection from "../layout/CommentSection";
+const { Meta } = Card;
 
-const HomePage = ({ product }) => {
-  const { name, description, images, reviews } = product;
-
+const ProductCard = ({ product, reviews }) => {
+  const { _id, name, description, images } = product;
   return (
     <>
-      {showAverage(product)}
+      <div className="col-md-6">
+        <Carousel autoPlay infiniteLoop>
+          {images &&
+            images.map((image) => <img src={image.url} key={image._id} />)}
+        </Carousel>
+        <CommentSection reviews={reviews} />
+      </div>
 
-      <Card
-        cover={
-          <img
-            src={images[0].url}
-            className="p-2"
-            style={{ height: "200px", objectFit: "cover" }}
-          />
-        }
-        actions={[
-          <Link to="/">
-            <EyeOutlined className="text-info" /> <br /> View Product
-          </Link>,
-
-          <Link to="/">
-            <ShoppingCartOutlined className="text-success" /> <br /> Add to Cart
-          </Link>,
-        ]}
-      >
-        <Meta
-          title={name}
-          description={`${description && description.substring(0, 40)}...`}
-        />
-      </Card>
+      <div className="col-md-6">
+        <h1 className="bg-danger text-white p-3">{name}</h1>
+        <Card
+          actions={[
+            <>
+              <ShoppingCartOutlined className="text-info" /> <br /> ADD TO CART
+            </>,
+            <Link to="/">
+              <HeartOutlined className="text-info" /> <br /> ADD TO WISHLIST
+            </Link>,
+          ]}
+        >
+          <Meta description={description} />
+          <ProductListItems product={product} />
+        </Card>
+      </div>
     </>
   );
 };
 
-export default HomePage;
+export default ProductCard;

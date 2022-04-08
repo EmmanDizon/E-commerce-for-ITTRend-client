@@ -10,7 +10,7 @@ import ForgotPassword from "./auth/ForgotPassword";
 import ProtectRoutes from "./components/route/ProtectRoute";
 import AuthRestrictionRoute from "./components/route/AuthRestrictionRoute";
 
-import "./App.css";
+import Product from "./pages/Product";
 
 const App = () => {
   return (
@@ -26,7 +26,7 @@ const App = () => {
           <Route path="/forgot/password" element={<ForgotPassword />} />
         </Route>
         <Route path="/" element={<Home />} />
-
+        <Route path="product/:product_id" element={<Product />} />
         <Route path="*" element={<Page404 />} />
       </Routes>
     </React.Fragment>

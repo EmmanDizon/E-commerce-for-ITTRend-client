@@ -57,7 +57,7 @@ const productSchema = new mongoose.Schema(
           type: ObjectId,
           ref: "users",
         },
-        name: {
+        author: {
           type: String,
           required: true,
         },
@@ -65,9 +65,13 @@ const productSchema = new mongoose.Schema(
           type: Number,
           required: true,
         },
-        comment: {
+        content: {
           type: String,
           required: true,
+        },
+        datetime: {
+          type: Date,
+          default: Date.now(),
         },
       },
     ],
