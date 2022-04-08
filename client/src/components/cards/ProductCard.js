@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Skeleton } from "antd";
+import { Card } from "antd";
 import { EyeOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import Meta from "antd/lib/card/Meta";

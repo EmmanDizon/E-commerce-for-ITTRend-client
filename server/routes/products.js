@@ -9,7 +9,7 @@ const {
   authorizeRoles,
 } = require("../middlewares/authentication");
 
-router.route("/get_products").get(getProducts);
+router.route("/get_products").post(getProducts);
 
 router
   .route("/create_products")
