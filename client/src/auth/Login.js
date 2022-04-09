@@ -4,7 +4,6 @@ import { Button, Input, Form, Card, Image, Space, Typography } from "antd";
 import { LoginOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, clearErrors } from "../redux/actions/user_action";
-import { useNavigate } from "react-router-dom";
 
 import logo from "../assets/images/logo.png";
 
@@ -14,7 +13,6 @@ const Login = function () {
   const [form] = Form.useForm();
 
   const alert = useAlert();
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { isAuthenticated, error, loading } = useSelector(

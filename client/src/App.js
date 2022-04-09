@@ -15,6 +15,7 @@ import Register from "./auth/Register";
 import ForgotPassword from "./auth/ForgotPassword";
 
 import ProtectRoutes from "./components/route/ProtectRoute";
+import { ProtectAdminRoutes, ProtectUserRoutes } from "./components/route/ProtectAdminRoute";
 import AuthRestrictionRoute from "./components/route/AuthRestrictionRoute";
 
 import Search from "./pages/Search";
@@ -24,27 +25,35 @@ const App = () => {
   return (
     <React.Fragment>
       <Routes>
-        <Route element={<ProtectRoutes />}>
-          {/*routes you want to proctect if the user is not log in*/}
+        <Route element={<ProtectAdminRoutes />}>
+          {/*routes you want to protect if the admin is not log in*/}
           <Route element={<Main />}>
             <Route path="/" element={<Dashboard />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="*" element={<Page404 />} />
           </Route>
         </Route>
-        <Route element={<AuthRestrictionRoute />}>
-          {/*routes restricted if the user is log in*/}
+
+        {/*routes you want to protect if the admin is log in*/}
+        <Route element={<ProtectUserRoutes />}>
           <Route element={<PublicMain />}>
+            <Route element={<ProtectRoutes />}>
+              {/*routes you want to protect if the user is not log in*/}
+            </Route>
+
+            <Route element={<AuthRestrictionRoute />}>
+              {/*routes restricted if the user is log in*/}
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/forgot/password" element={<ForgotPassword />} />
+            </Route>
+
             <Route path="/home" element={<HomePage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/forgot/password" element={<ForgotPassword />} />
+            <Route path="/search" element={<Search />} />
             <Route path="product/:product_id" element={<Product />} />
             <Route path="*" element={<HomePage />} />
           </Route>
         </Route>
-
-        <Route path="/search" element={<Search />} />
       </Routes>
     </React.Fragment>
   );
