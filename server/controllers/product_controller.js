@@ -41,10 +41,10 @@ exports.getProduct = TryCatch(async (req, res, next) => {
 const handlerQuery = async (req, res, keyword) => {
   const products = await Product.find({
     $or: [
-      { name: { $regex: keyword, $options: "i" } },
+      { name: { $regex: `${keyword}`, $options: "i" } },
       {
         description: {
-          $regex: keyword,
+          $regex: `${keyword}`,
           $options: "i",
         },
       },
