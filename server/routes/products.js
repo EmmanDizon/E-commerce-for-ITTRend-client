@@ -4,7 +4,7 @@ const {
   createProducts,
   getProducts,
   getProduct,
-  getReviews,
+  searchAndFilter,
 } = require("../controllers/product_controller");
 
 const {
@@ -14,6 +14,7 @@ const {
 
 router.route("/get_product/:id").get(getProduct);
 
+router.route("/search/filters").post(searchAndFilter);
 router.route("/get_products").post(getProducts);
 router
   .route("/create_products")

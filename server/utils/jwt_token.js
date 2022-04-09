@@ -12,7 +12,6 @@ const sendToken = (user, statusCode, res) => {
   res.cookie("token", token, options);
 
   const result = _.pick(user, [
-    "_id",
     "firstname",
     "lastname",
     "email",

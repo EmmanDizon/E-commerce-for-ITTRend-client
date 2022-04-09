@@ -37,3 +37,21 @@ exports.getProduct = TryCatch(async (req, res, next) => {
     reviews: product.reviews,
   });
 });
+
+const handlerQuery = async (req, res, query) => {
+  const products = await Product.find({
+    $text: {
+      $search: query,
+    },
+  }).populate("category");
+
+  res.json(products);
+};
+exports.searchAndFilter = TryCatch(async (req, res, next) => {
+  const { query } = req;
+
+  if (query) {
+    await handlerQuery(req, res, query.name);
+  }
+  const product = await Product.findById(req.params.id);
+});
