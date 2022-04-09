@@ -147,7 +147,7 @@ function Sidenav({ color }) {
             <span
               className="icon"
               style={{
-                background: page === "tables" ? color : "",
+                background: page === "products" ? color : "",
               }}
             >
               {tables}
@@ -160,7 +160,7 @@ function Sidenav({ color }) {
             <span
               className="icon"
               style={{
-                background: page === "billing" ? color : "",
+                background: page === "categories" ? color : "",
               }}
             >
               {billing}
