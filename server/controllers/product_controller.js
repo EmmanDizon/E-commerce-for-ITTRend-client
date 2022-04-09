@@ -38,20 +38,20 @@ exports.getProduct = TryCatch(async (req, res, next) => {
   });
 });
 
-const handlerQuery = async (req, res, query) => {
+const handlerQuery = async (req, res, keyword) => {
   const products = await Product.find({
     $text: {
-      $search: query,
+      $search: keyword,
     },
   }).populate("category");
 
   res.json(products);
 };
 exports.searchAndFilter = TryCatch(async (req, res, next) => {
-  const { query } = req;
+  const { keyword } = req.query;
 
-  if (query) {
-    await handlerQuery(req, res, query.name);
+  if (keyword) {
+    await handlerQuery(req, res, keyword);
   }
   const product = await Product.findById(req.params.id);
 });

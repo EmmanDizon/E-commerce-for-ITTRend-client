@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ProductsCard from "../components/cards/ProductsCard";
 import http from "../service/http";
 import Loader from "../components/layout/loader";
-import { Row, Col, Empty, Pagination } from "antd";
+import { Row, Col, Pagination } from "antd";
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);

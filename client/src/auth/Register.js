@@ -1,15 +1,6 @@
 import React, { useEffect } from "react";
 import { useAlert } from "react-alert";
-import {
-  Form,
-  Input,
-  Button,
-  Card,
-  Typography,
-  Row,
-  Col,
-  InputNumber,
-} from "antd";
+import { Form, Input, Button, Card, Typography, Row, Col } from "antd";
 import { UserAddOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { register, clearErrors } from "../redux/actions/user_action";

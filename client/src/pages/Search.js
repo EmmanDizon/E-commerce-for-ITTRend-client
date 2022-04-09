@@ -7,16 +7,17 @@ import http from "../service/http";
 const Search = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const { text } = useSelector((state) => state.search);
   useEffect(() => {
-    fetchProducts();
+    fetchProducts(text);
   }, []);
 
-  const fetchProducts = async () => {
-    const { data } = await http.post(
-      `${process.env.REACT_APP_NODE_PORT}/products/get_products`
+  const fetchProducts = async (query) => {
+    const { data: products } = await http.post(
+      `${process.env.REACT_APP_NODE_PORT}/products/search/filters?keyword=${query}`
     );
-    setProducts(data.products);
+
+    setProducts(products);
     setLoading(false);
   };
 
