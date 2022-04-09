@@ -6,6 +6,7 @@ import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import ProductListItems from "./ProductListItems";
 import CommentSection from "../layout/CommentSection";
+import { Pagination, Image } from "antd";
 const { Meta } = Card;
 
 const ProductCard = ({ product, reviews }) => {
@@ -13,11 +14,18 @@ const ProductCard = ({ product, reviews }) => {
   return (
     <>
       <div className="col-md-6">
-        <Carousel autoPlay infiniteLoop>
+        <Carousel autoPlay infiniteLoop showThumbs={false}>
           {images &&
-            images.map((image) => <img src={image.url} key={image._id} />)}
+            images.map((image) => <Image src={image.url} key={image._id} />)}
         </Carousel>
-        <CommentSection reviews={reviews} />
+        <div>
+          <CommentSection reviews={reviews} />
+          <Pagination
+            style={{ textAlign: "center" }}
+            defaultCurrent={1}
+            total={10}
+          />
+        </div>
       </div>
 
       <div className="col-md-6">
