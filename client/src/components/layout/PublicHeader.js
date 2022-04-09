@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Menu } from "antd";
 import { HomeOutlined, LoginOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import Search from "../forms/Search";
+import Search from "../../components/forms/Search";
 
 import "../../App.css";
 
@@ -19,11 +19,11 @@ const PublicHeader = () => {
         <Link to="/home">Home</Link>
       </Menu.Item>
 
-      <Menu.Item
-        key="login"
-        icon={<LoginOutlined />}
-        style={{ marginLeft: "auto" }}
-      >
+      <Menu.Item key="search" style={{ marginLeft: "auto" }}>
+        <Search />
+      </Menu.Item>
+
+      <Menu.Item key="login" icon={<LoginOutlined />}>
         <Link to="/login">Login</Link>
       </Menu.Item>
     </Menu>

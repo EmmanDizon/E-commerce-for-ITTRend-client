@@ -17,6 +17,7 @@ import ForgotPassword from "./auth/ForgotPassword";
 import ProtectRoutes from "./components/route/ProtectRoute";
 import AuthRestrictionRoute from "./components/route/AuthRestrictionRoute";
 
+import Search from "./pages/Search";
 import Product from "./pages/Product";
 
 const App = () => {
@@ -25,15 +26,15 @@ const App = () => {
       <Routes>
         <Route element={<ProtectRoutes />}>
           {/*routes you want to proctect if the user is not log in*/}
-            <Route element={<Main/>}>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="*" element={<Page404 />} />
-            </Route>
+          <Route element={<Main />}>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="*" element={<Page404 />} />
+          </Route>
         </Route>
         <Route element={<AuthRestrictionRoute />}>
           {/*routes restricted if the user is log in*/}
-          <Route element={<PublicMain/>}>
+          <Route element={<PublicMain />}>
             <Route path="/home" element={<HomePage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
@@ -42,6 +43,8 @@ const App = () => {
             <Route path="*" element={<HomePage />} />
           </Route>
         </Route>
+
+        <Route path="/search" element={<Search />} />
       </Routes>
     </React.Fragment>
   );

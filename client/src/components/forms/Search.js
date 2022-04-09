@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Input } from "antd";
+import { SearchOutlined } from "@ant-design/icons";
 import { searchProduct } from "../../redux/actions/search_action";
 
 const Search = () => {
@@ -9,18 +9,25 @@ const Search = () => {
   const { text } = useSelector((state) => state.search);
   const navigate = useNavigate();
 
-  const handleSubmit = (value) => {
-    dispatch(searchProduct(value));
+  const handleChange = ({ target: input }) => {
+    dispatch(searchProduct(input.value));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
     navigate(`/search?${text}`);
   };
 
   return (
-    <form className="form-inline my-2 my-lg-0">
-      <Input.Search
-        size="medium"
-        placeholder="search prducts..."
-        onSearch={handleSubmit}
+    <form className="form-inline my-2 my-lg-0" onSubmit={handleSubmit}>
+      <input
+        onChange={handleChange}
+        type="search"
+        value={text}
+        className="form-control mr-sm-2"
+        placeholder="Search"
       />
+      <SearchOutlined onClick={handleSubmit} style={{ cursor: "pointer" }} />
     </form>
   );
 };
