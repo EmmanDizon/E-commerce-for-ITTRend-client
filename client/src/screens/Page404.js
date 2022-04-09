@@ -1,5 +1,6 @@
 import React from "react";
 import { Typography, Image, Grid } from "antd";
+import Logo from '../assets/images/404.png'
 
 const { useBreakpoint } = Grid;
 
@@ -17,7 +18,7 @@ const Page404 = () => {
         height: "80vh",
       }}
     >
-      <Image preview={false} src="/images/404.png" width={screens.xs ? "100vw" : "60vw"} />
+      <Image preview={false} src={Logo} width={screens.xs ? "100vw" : "60vw"} />
       <div style={{ flexDirection: "row", marginLeft: !screens.xs ? "-10vh" : 0 }}>
         <Typography.Title style={{ fontSize: screens.xs ? 50 : 100, textAlign: screens.xs ? "center" : "left" }}>Page Not Found</Typography.Title>
         <Typography.Paragraph style={{ fontSize: 15, textAlign: screens.xs ? "center" : "left" }}>

@@ -9,5 +9,5 @@ const useAuth = () => {
 
 export default function AuthRestrictionRoute() {
   const isAuth = useAuth();
-  return isAuth ? <Navigate to="/" replace state={1} /> : <Outlet />;
+  return isAuth ? <Navigate to="/dashboard" replace state={1} /> : <Outlet />;
 }

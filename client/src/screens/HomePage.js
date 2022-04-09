@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import ProductsCard from "../cards/ProductsCard";
-import http from "../../service/http";
-import Loader from "../../components/layout/loader";
+import ProductsCard from "../components/cards/ProductsCard";
+import http from "../service/http";
+import Loader from "../components/layout/loader";
 import { Row, Col, Empty, Pagination } from "antd";
 
 const HomePage = () => {

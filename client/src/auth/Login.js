@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser, clearErrors } from "../redux/actions/user_action";
 import { useNavigate } from "react-router-dom";
 
+import logo from "../assets/images/logo.png";
+
 const { Text, Link } = Typography;
 
 const Login = function () {
@@ -47,7 +49,7 @@ const Login = function () {
               direction="horizontal"
               style={{ width: "100%", justifyContent: "center" }}
             >
-              <Image src="/images/logo.png" height={150} />
+              <Image src={logo} height={150} />
             </Space>
 
             <Form.Item
