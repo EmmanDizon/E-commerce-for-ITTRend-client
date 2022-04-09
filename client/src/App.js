@@ -15,7 +15,10 @@ import Register from "./auth/Register";
 import ForgotPassword from "./auth/ForgotPassword";
 
 import ProtectRoutes from "./components/route/ProtectRoute";
-import { ProtectAdminRoutes, ProtectUserRoutes } from "./components/route/ProtectAdminRoute";
+import {
+  ProtectAdminRoutes,
+  ProtectUserRoutes,
+} from "./components/route/ProtectAdminRoute";
 import AuthRestrictionRoute from "./components/route/AuthRestrictionRoute";
 
 import Search from "./pages/Search";
@@ -49,7 +52,7 @@ const App = () => {
             </Route>
 
             <Route path="/home" element={<HomePage />} />
-            <Route path="/search" element={<Search />} />
+            <Route path="/search/products" element={<Search />} />
             <Route path="product/:product_id" element={<Product />} />
             <Route path="*" element={<HomePage />} />
           </Route>
