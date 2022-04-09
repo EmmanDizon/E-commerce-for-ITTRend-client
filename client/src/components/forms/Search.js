@@ -14,8 +14,12 @@ const Search = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    navigate(`/search?${text}`);
+    if (text === "") {
+      e.preventDefault();
+      return;
+    }
+
+    navigate(`/search/products`);
   };
 
   return (

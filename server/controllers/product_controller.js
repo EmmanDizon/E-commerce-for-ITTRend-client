@@ -40,10 +40,16 @@ exports.getProduct = TryCatch(async (req, res, next) => {
 
 const handlerQuery = async (req, res, keyword) => {
   const products = await Product.find({
-    $text: {
-      $search: keyword,
-    },
-  }).populate("category");
+    $or: [
+      { name: { $regex: keyword, $options: "i" } },
+      {
+        description: {
+          $regex: keyword,
+          $options: "i",
+        },
+      },
+    ],
+  });
 
   res.json(products);
 };
@@ -52,6 +58,7 @@ exports.searchAndFilter = TryCatch(async (req, res, next) => {
 
   if (keyword) {
     await handlerQuery(req, res, keyword);
+  } else {
+    res.json();
   }
-  const product = await Product.findById(req.params.id);
 });
