@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { SearchOutlined } from "@ant-design/icons";
 import { searchProduct } from "../../redux/actions/search_action";
+import { Input } from "antd";
 
 const Search = () => {
   const dispatch = useDispatch();
@@ -23,13 +24,12 @@ const Search = () => {
   };
 
   return (
-    <form className="form-inline my-2 my-lg-0" onSubmit={handleSubmit}>
-      <input
+    <form className="form-inline my-2 my-lg-0 " onSubmit={handleSubmit}>
+      <Input
+        bordered={false}
         onChange={handleChange}
-        type="search"
-        value={text}
         className="form-control mr-sm-2"
-        placeholder="Search"
+        placeholder="Search here..."
       />
       <SearchOutlined onClick={handleSubmit} style={{ cursor: "pointer" }} />
     </form>

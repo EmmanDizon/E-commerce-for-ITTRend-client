@@ -49,7 +49,7 @@ const handlerQuery = async (req, res, keyword) => {
         },
       },
     ],
-  });
+  }).populate("category");
 
   res.json(products);
 };
