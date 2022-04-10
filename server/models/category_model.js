@@ -7,6 +7,8 @@ const categorySchema = new mongoose.Schema(
       required: true,
       trim: true,
       minlength: [3, "Minimum of 3 characters."],
+      unique: true,
+      lowercase: true,
     },
   },
   { timestamps: true }

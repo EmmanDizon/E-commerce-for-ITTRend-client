@@ -1,6 +1,7 @@
 const Product = require("../models/product_model");
 const TryCatch = require("../middlewares/handle_try_catch");
 const ErrorHandler = require("../utils/error_handler");
+const { handleQuery, handlePrice } = require("../common/functions");
 
 exports.createProducts = TryCatch(async (req, res, next) => {
   const product = await Product.create(req.body);
@@ -38,27 +39,14 @@ exports.getProduct = TryCatch(async (req, res, next) => {
   });
 });
 
-const handlerQuery = async (req, res, keyword) => {
-  const products = await Product.find({
-    $or: [
-      { name: { $regex: `${keyword}`, $options: "i" } },
-      {
-        description: {
-          $regex: `${keyword}`,
-          $options: "i",
-        },
-      },
-    ],
-  }).populate("category");
-
-  res.json(products);
-};
 exports.searchAndFilter = TryCatch(async (req, res, next) => {
-  const { keyword } = req.query;
+  const { keyword, price } = req.query;
 
   if (keyword) {
-    await handlerQuery(req, res, keyword);
-  } else {
-    res.json();
+    await handleQuery(res, keyword);
+  }
+
+  if (price) {
+    await handlePrice(res, price);
   }
 });

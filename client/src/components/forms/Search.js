@@ -14,25 +14,25 @@ const Search = () => {
     dispatch(searchProduct(input.value));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = () => {
     if (text === "") {
-      e.preventDefault();
-      return;
+      navigate(`/`);
+    } else {
+      navigate(`/search/products`);
     }
-
-    navigate(`/search/products`);
   };
 
   return (
-    <form className="form-inline my-2 my-lg-0 " onSubmit={handleSubmit}>
-      <Input
+    <div className="form-inline my-2 my-lg-0 ">
+      <Input.Search
         bordered={false}
+        value={text}
         onChange={handleChange}
+        onSearch={handleSubmit}
         className="form-control mr-sm-2"
         placeholder="Search here..."
       />
-      <SearchOutlined onClick={handleSubmit} style={{ cursor: "pointer" }} />
-    </form>
+    </div>
   );
 };
 

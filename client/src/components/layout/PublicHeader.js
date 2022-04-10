@@ -59,11 +59,7 @@ const PublicHeader = () => {
       </Menu.Item>
 
       {hasUser() && (
-        <SubMenu
-          key="username"
-          icon={<SettingOutlined />}
-          title={username()}
-        >
+        <SubMenu key="username" icon={<SettingOutlined />} title={username()}>
           <Menu.Item
             key="dashboard"
             icon={<LineChartOutlined />}
@@ -98,10 +94,7 @@ const PublicHeader = () => {
       )}
 
       {!hasUser() && (
-        <Menu.Item
-          key="login"
-          icon={<LoginOutlined />}
-        >
+        <Menu.Item key="login" icon={<LoginOutlined />}>
           <Link to="/login">Login</Link>
         </Menu.Item>
       )}
