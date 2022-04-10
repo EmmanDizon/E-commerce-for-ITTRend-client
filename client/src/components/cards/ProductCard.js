@@ -12,11 +12,10 @@ import { useDispatch } from "react-redux";
 const { Meta } = Card;
 
 const ProductCard = ({ product, reviews }) => {
-  const { _id, name, description, images } = product;
+  const { name, description, images } = product;
   const dispatch = useDispatch();
 
   const addToCart = () => {
-    console.log(product);
     dispatch(addToCartAction(product));
   };
   return (

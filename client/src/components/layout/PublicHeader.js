@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Menu } from "antd";
+import { Menu, Badge } from "antd";
 import { Link } from "react-router-dom";
 import Search from "../../components/forms/Search";
 import { useSelector } from "react-redux";
@@ -14,6 +14,7 @@ import {
   SettingOutlined,
   OrderedListOutlined,
   LineChartOutlined,
+  ShoppingCartOutlined,
 } from "@ant-design/icons";
 
 import "../../App.css";
@@ -23,6 +24,7 @@ const { SubMenu } = Menu;
 const PublicHeader = () => {
   const [current, setCurrent] = useState("home");
   const { user } = useSelector((state) => state.auth);
+  const { cartItems } = useSelector((state) => state.cart);
 
   const dispatch = useDispatch();
 
@@ -51,6 +53,19 @@ const PublicHeader = () => {
     <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
       <Menu.Item key="home" icon={<HomeOutlined />}>
         <Link to="/home">Home</Link>
+      </Menu.Item>
+
+      <Menu.Item
+        key="cart"
+        icon={<ShoppingCartOutlined style={{ fontSize: "20px" }} />}
+      >
+        <Link to="/cart">
+          <Badge
+            count={cartItems.length}
+            offset={[-10, -20]}
+            size="small"
+          ></Badge>
+        </Link>
       </Menu.Item>
 
       <Menu.Item key="search" style={{ marginLeft: "auto" }}>
