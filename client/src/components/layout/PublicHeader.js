@@ -35,8 +35,7 @@ const PublicHeader = () => {
 
   const username = () => {
     if (hasUser()) {
-      const info = user["user"];
-      return info.firstname.split(" ")[0] + " " + info.lastname;
+      return user.firstname.split(" ")[0] + " " + user.lastname;
     }
   };
 
@@ -63,7 +62,7 @@ const PublicHeader = () => {
           <Menu.Item
             key="dashboard"
             icon={<LineChartOutlined />}
-            hidden={user["user"].role === "admin" ? false : true}
+            hidden={user.role === "admin" ? false : true}
             onClick={onClickHandler}
           >
             <Link to="/dashboard">Dashboard</Link>

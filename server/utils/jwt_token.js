@@ -9,8 +9,6 @@ const sendToken = (user, statusCode, res) => {
     httpOnly: true,
   };
 
-  res.cookie("token", token, options);
-
   const result = _.pick(user, [
     "firstname",
     "lastname",
@@ -20,7 +18,7 @@ const sendToken = (user, statusCode, res) => {
     "wishList",
   ]);
 
-  res.status(statusCode).json({
+  res.status(statusCode).cookie("token", token, options).json({
     success: true,
     token,
     user: result,

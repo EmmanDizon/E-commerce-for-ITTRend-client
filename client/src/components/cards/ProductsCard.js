@@ -4,9 +4,16 @@ import { EyeOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import Meta from "antd/lib/card/Meta";
 import AvarageStarRating from "../others/AverageStarRating";
+import { addToCart as addToCartAction } from "../../redux/actions/cart_action";
+import { useDispatch } from "react-redux";
 
 const ProductsCard = ({ product }) => {
-  const { _id, name, description, images, reviews } = product;
+  const { _id, name, description, images } = product;
+  const dispatch = useDispatch();
+
+  const addToCart = () => {
+    dispatch(addToCartAction(product));
+  };
 
   return (
     <>
@@ -31,9 +38,9 @@ const ProductsCard = ({ product }) => {
             <EyeOutlined className="text-info" /> <br /> View Product
           </Link>,
 
-          <Link to="/">
+          <a onClick={addToCart}>
             <ShoppingCartOutlined className="text-success" /> <br /> Add to Cart
-          </Link>,
+          </a>,
         ]}
       >
         <Meta

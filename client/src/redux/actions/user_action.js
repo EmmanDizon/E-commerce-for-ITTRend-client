@@ -17,14 +17,21 @@ export const loginUser = (user) => async (dispatch) => {
       type: LOGIN_REQUEST,
     });
 
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
     const { data } = await http.post(
       `${process.env.REACT_APP_NODE_PORT}/users/login`,
-      user
+      user,
+      config
     );
 
     dispatch({
       type: LOGIN_SUCCESS,
-      payload: data,
+      payload: data.user,
     });
   } catch (error) {
     dispatch({

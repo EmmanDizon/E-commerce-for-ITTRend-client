@@ -7,10 +7,18 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import ProductListItems from "./ProductListItems";
 import CommentSection from "../layout/CommentSection";
 import { Pagination, Image } from "antd";
+import { addToCart as addToCartAction } from "../../redux/actions/cart_action";
+import { useDispatch } from "react-redux";
 const { Meta } = Card;
 
 const ProductCard = ({ product, reviews }) => {
   const { _id, name, description, images } = product;
+  const dispatch = useDispatch();
+
+  const addToCart = () => {
+    console.log(product);
+    dispatch(addToCartAction(product));
+  };
   return (
     <>
       <div className="col-md-6">
@@ -33,7 +41,10 @@ const ProductCard = ({ product, reviews }) => {
         <Card
           actions={[
             <>
-              <ShoppingCartOutlined className="text-info" /> <br /> ADD TO CART
+              <a onClick={addToCart}>
+                <ShoppingCartOutlined className="text-info" /> <br /> ADD TO
+                CART
+              </a>
             </>,
             <Link to="/">
               <HeartOutlined className="text-info" /> <br /> ADD TO WISHLIST
