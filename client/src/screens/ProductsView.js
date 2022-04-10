@@ -45,7 +45,7 @@ const Products = () => {
       <div style={{ flex: 1, overflowY: "auto", overflowX: "hidden", padding: 10 }}>
         <List
           dataSource={products}
-          grid={{ gutter: 16, column: 4 }}
+          grid={{ gutter: 16, xs: 1, sm: 2, md: 2, lg: 2, xl: 3, xxl: 4 }}
           renderItem={(item) => (
             <List.Item>
               <Card
@@ -64,13 +64,15 @@ const Products = () => {
                     <Title ellipsis={true} level={5}>{item.name}</Title>
                     <Paragraph rows={3} ellipsis={{ rows: 3 }} style={{ color: "gray" }}>{item.description}</Paragraph>
                   </div>
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <AvarageStarRating
-                      starDimension="17px"
-                      starSpacing="1px"
-                      starRatedColor="gray"
-                      ratings={item}
-                    />
+                  <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap" }}>
+                    <div style={{ width: 110, padding: 5 }}>
+                      <AvarageStarRating
+                        starDimension="17px"
+                        starSpacing="1px"
+                        starRatedColor="gray"
+                        ratings={item}
+                      />
+                    </div>
                     <div style={{ flex: 1 }}/>
                     <div style={{ display: "flex", gap: 10 }}>
                       <CardControl
