@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { List, Card, Button, Typography, Image, Tooltip } from "antd";
 import { EditFilled, EyeFilled, DeleteFilled } from '@ant-design/icons';
-import http from "../service/http";
-import AvarageStarRating from "../components/others/AverageStarRating";
+import http from "../../service/http";
+import AvarageStarRating from "../others/AverageStarRating";
 
 const { Title, Paragraph, Text } = Typography;
 

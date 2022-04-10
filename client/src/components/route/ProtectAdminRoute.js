@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 const useAuth = () => {
   const userState = useSelector((state) => state.auth);
-  return userState?.user?.user?.role === "admin";
+  return userState?.user?.role === "admin";
 };
 
 const ProtectAdminRoutes = () => {

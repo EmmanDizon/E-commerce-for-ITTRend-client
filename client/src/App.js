@@ -13,7 +13,7 @@ import Page404 from "./screens/Page404";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
 import ForgotPassword from "./auth/ForgotPassword";
-import ProductsView from "./screens/ProductsView";
+import ProductsView from "./components/views/ProductsView";
 
 import ProtectRoutes from "./components/route/ProtectRoute";
 import {
