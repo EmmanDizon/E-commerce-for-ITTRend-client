@@ -3,15 +3,21 @@ import { Card } from "antd";
 import { EyeOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import Meta from "antd/lib/card/Meta";
-import { showAverage } from "../../functions/rating";
+import AvarageStarRating from "../others/AverageStarRating";
 
 const ProductsCard = ({ product }) => {
   const { _id, name, description, images, reviews } = product;
 
   return (
     <>
-      {showAverage(product)}
-
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <AvarageStarRating
+          starDimension="20px"
+          starSpacing="2px"
+          starRatedColor="rgb(19,69,149)"
+          ratings={product}
+        />
+      </div>
       <Card
         cover={
           <img

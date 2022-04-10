@@ -1,8 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserCircle, faCog, faBell, faSignOut } from '@fortawesome/free-solid-svg-icons'
-import { Row, Col, Badge, Dropdown, Button, List, Avatar, Input } from "antd";
+import { Row, Col, Badge, Dropdown, Button, List, Avatar, Input, Breadcrumb } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
+import { NavLink } from "react-router-dom";
 
 import { logout } from "../../redux/actions/user_action";
 
@@ -54,6 +55,14 @@ const Header = ({ subName, onPress }) => {
 
         {/* PAGE TITLE AND DESCRIPTION */}
         <Col span={24} md={6}>
+          <Breadcrumb>
+            <Breadcrumb.Item>
+              <NavLink to="/">Pages</NavLink>
+            </Breadcrumb.Item>
+            <Breadcrumb.Item style={{ textTransform: "capitalize" }}>
+              {(subName.charAt(0).toUpperCase() + subName.slice(1)).replace("/", "")}
+            </Breadcrumb.Item>
+          </Breadcrumb>
           <div className="ant-page-header-heading">
             <span
               className="ant-page-header-heading-title"

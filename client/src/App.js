@@ -13,6 +13,7 @@ import Page404 from "./screens/Page404";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
 import ForgotPassword from "./auth/ForgotPassword";
+import ProductsView from "./screens/ProductsView";
 
 import ProtectRoutes from "./components/route/ProtectRoute";
 import {
@@ -33,6 +34,7 @@ const App = () => {
           <Route element={<Main />}>
             <Route path="/" element={<Dashboard />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/products" element={<ProductsView />} />
             <Route path="*" element={<Page404 />} />
           </Route>
         </Route>

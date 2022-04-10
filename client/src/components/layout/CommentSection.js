@@ -1,6 +1,6 @@
 import React from "react";
 import { Comment, List } from "antd";
-import Rating from "./StarRating";
+import StarRating from "react-star-ratings";
 
 const CommentSection = ({ reviews }) => {
   const formatDate = (date) => {
@@ -14,7 +14,7 @@ const CommentSection = ({ reviews }) => {
       <>
         <span>{element.author} </span>
 
-        <Rating
+        <StarRating
           starDimension="15px"
           starSpacing="2px"
           starRatedColor="rgb(19,69,149)"
