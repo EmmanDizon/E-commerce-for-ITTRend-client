@@ -17,8 +17,6 @@ import {
   ShoppingCartOutlined,
 } from "@ant-design/icons";
 
-import "../../App.css";
-
 const { SubMenu } = Menu;
 
 const PublicHeader = () => {

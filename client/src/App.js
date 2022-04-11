@@ -25,6 +25,7 @@ import AuthRestrictionRoute from "./components/route/AuthRestrictionRoute";
 import Search from "./pages/Search";
 import Product from "./pages/Product";
 import AddToCart from "./pages/AddToCart";
+import Checkout from "./pages/Checkout";
 
 const App = () => {
   return (
@@ -56,6 +57,7 @@ const App = () => {
 
             <Route path="/home" element={<HomePage />} />
             <Route path="/cart" element={<AddToCart />} />
+            <Route path="/Checkout" element={<Checkout />} />
             <Route path="/search/products" element={<Search />} />
             <Route path="product/:product_id" element={<Product />} />
             <Route path="*" element={<HomePage />} />
