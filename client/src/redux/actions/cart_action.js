@@ -1,4 +1,10 @@
-import { ADD_TO_CART, REMOVE_TO_CART } from "../constants";
+import {
+  ADD_TO_CART,
+  ADD_TO_CART_CHANGE_QUANTITY,
+  REMOVE_TO_CART,
+} from "../constants";
+
+import http from "../../service/http";
 
 export const addToCart =
   (product, quantity = 1) =>
@@ -26,13 +32,23 @@ export const removeToCart = (id) => (dispatch) => {
   });
 };
 
-export const onChangeCart = (quantity, _id) => (dispatch) => {
+export const onChangeCart = (quantity, id) => async (dispatch) => {
+  const { data } = await http.get(
+    `${process.env.REACT_APP_NODE_PORT}/products/get_product/${id}`
+  );
+
   const result = {
+    _id: data.product._id,
+    name: data.product.name,
+    image: data.product.images[0].url,
+    price: data.product.price,
+    description: data.product.description,
+    stocks: data.product.stocks,
     quantity,
-    _id,
   };
+
   dispatch({
-    type: ADD_TO_CART,
+    type: ADD_TO_CART_CHANGE_QUANTITY,
     payload: result,
   });
 };

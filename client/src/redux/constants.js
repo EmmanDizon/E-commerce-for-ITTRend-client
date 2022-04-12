@@ -14,6 +14,7 @@ export const LOGOUT_FAIL = "LOGOUT_FAIL";
 export const SEARCH_QUERY = "SEARCH_QUERY";
 
 export const ADD_TO_CART = "ADD_TO_CART";
+export const ADD_TO_CART_CHANGE_QUANTITY = "ADD_TO_CART_CHANGE_QUANTITY";
 export const REMOVE_TO_CART = "REMOVE_TO_CART";
 
 export const CLEAR_ERRORS = "CLEAR_ERRORS";

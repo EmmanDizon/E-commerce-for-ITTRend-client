@@ -53,7 +53,7 @@ const AddToCart = () => {
   };
 
   const onChange = (quantity, id) => {
-    //dispatch(onChangeCart(quantity, id));
+    dispatch(onChangeCart(quantity, id));
   };
 
   const getTotal = () => {
