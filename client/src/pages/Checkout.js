@@ -39,14 +39,14 @@ const Checkout = () => {
   };
 
   return (
-    <>
+    <div className="container-fluid p-5">
       <Steps current={current}>
         {steps.map((item) => (
           <Step key={item.title} title={item.title} icon={item.icon} />
         ))}
       </Steps>
       <div className="steps-content">{steps[current].content}</div>
-      <div className="steps-action">
+      <div className="steps-action d-flex justify-content-center align-items-center">
         {current < steps.length - 1 && (
           <Button type="primary" onClick={() => next()}>
             Next
@@ -66,7 +66,7 @@ const Checkout = () => {
           </Button>
         )}
       </div>
-    </>
+    </div>
   );
 };
 
