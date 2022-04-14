@@ -1,4 +1,4 @@
-import { Input, Form, Card, Select, Typography } from "antd";
+import { Input, Form, Card, Select, Button } from "antd";
 import {
   HomeOutlined,
   MailOutlined,
@@ -7,19 +7,23 @@ import {
   FlagOutlined,
 } from "@ant-design/icons";
 import { countries } from "countries-list";
-import logo from "../../../assets/images/logo.png";
 
 const { Option } = Select;
 
-const Login = function () {
+const Shipping = function ({ onSuccess, next }) {
   const [form] = Form.useForm();
   const countriesList = Object.values(countries);
 
-  console.log(countriesList);
   const Shipping = () => {
     return (
       <>
-        <Form name="shipping" initialValues={{}} form={form}>
+        <h5>Shipping Info</h5>
+        <Form
+          name="shipping"
+          initialValues={{}}
+          form={form}
+          onFinish={onSuccess}
+        >
           <Card
             style={{
               borderRadius: "20px",
@@ -115,7 +119,7 @@ const Login = function () {
                 showSearch
                 placeholder="Country"
                 size="large"
-                prefix={<FlagOutlined />}
+                suffixIcon={<FlagOutlined />}
               >
                 {countriesList.map((country) => {
                   return (
@@ -143,4 +147,4 @@ const Login = function () {
   );
 };
 
-export default Login;
+export default Shipping;

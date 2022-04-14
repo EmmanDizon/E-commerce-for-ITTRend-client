@@ -1,4 +1,4 @@
-import { Steps, Button, message } from "antd";
+import { Steps, Button, message, Form } from "antd";
 import React from "react";
 import {
   SnippetsOutlined,
@@ -29,6 +29,7 @@ const steps = [
 
 const Checkout = () => {
   const [current, setCurrent] = React.useState(0);
+  const [form] = Form.useForm();
 
   const next = () => {
     setCurrent(current + 1);
@@ -40,11 +41,14 @@ const Checkout = () => {
 
   return (
     <div className="container-fluid p-5">
-      <Steps current={current}>
-        {steps.map((item) => (
-          <Step key={item.title} title={item.title} icon={item.icon} />
-        ))}
-      </Steps>
+      <Form onFinish={next} form={form}>
+        <Steps current={current}>
+          {steps.map((item) => (
+            <Step key={item.title} title={item.title} icon={item.icon} />
+          ))}
+        </Steps>
+      </Form>
+
       <div className="steps-content">{steps[current].content}</div>
       <div className="steps-action d-flex justify-content-center align-items-center">
         {current < steps.length - 1 && (
