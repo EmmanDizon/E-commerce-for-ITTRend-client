@@ -9,10 +9,11 @@ import http from "../../service/http";
 export const addToCart =
   (product, quantity = 1) =>
   (dispatch) => {
+    const image = JSON.parse(product.images);
     const result = {
-      _id: product._id,
+      _id: product.id,
       name: product.name,
-      image: product.images[0].url,
+      image: image[0].url,
       price: product.price,
       description: product.description,
       stocks: product.stocks,
@@ -38,7 +39,7 @@ export const onChangeCart = (quantity, id) => async (dispatch) => {
   );
 
   const result = {
-    _id: data.product._id,
+    _id: data.product.id,
     name: data.product.name,
     image: data.product.images[0].url,
     price: data.product.price,
