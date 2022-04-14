@@ -1,16 +1,11 @@
 import React from "react";
 import StarRating from "react-star-ratings";
-import { showAverage } from "../../functions/rating"
+import { showAverage } from "../../functions/rating";
 
 const AvarageStarRating = (props) => {
-  const { ratings, ...otherProps } = props;
+  const { product, ...otherProps } = props;
 
-  return (
-    <StarRating
-      rating={showAverage(ratings)}
-      {...otherProps}
-    />
-  );
+  return <StarRating rating={product.ratings} {...otherProps} />;
 };
 
 export default AvarageStarRating;

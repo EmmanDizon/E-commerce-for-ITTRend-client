@@ -1,100 +1,56 @@
-const mongoose = require("mongoose");
+const knex = require("../common/database");
 
-const { ObjectId } = mongoose.Schema;
+const create = async (products) => {
+  return await knex("products").insert(products, "*");
+};
 
-const productSchema = new mongoose.Schema(
-  {
-    name: {
-      type: String,
-      required: [true, "Please enter product name"],
-      trim: true,
-      maxlength: [50, "Cannot exceed 100 characters"],
-      text: true,
-    },
-    price: {
-      type: Number,
-      required: [true, "Please enter price"],
-      maxlength: [5, "Cannot exceed 5 characters"],
-      default: 0.0,
-    },
-    description: {
-      type: String,
-      required: [true, "Please enter product description"],
-      trim: true,
-      text: true,
-    },
-    ratings: {
-      type: Number,
-      default: 0,
-    },
+const findById = async (id) => {
+  return await knex("products").where("id", id).first();
+};
 
-    stocks: {
-      type: Number,
-      required: [true, "Please enter product stock"],
-      maxlength: [5, "Product stock cannot exceed 5 characters"],
-      default: 0,
-    },
-    numOfReviews: {
-      type: Number,
-      default: 0,
-    },
-    category: {
-      type: ObjectId,
-      ref: "categories",
-    },
-    subcategory: [
-      {
-        type: ObjectId,
-        ref: "sub",
-      },
-    ],
-    sold: {
-      type: Number,
-      default: 0,
-    },
+const findAll = async (skip, resPerPage) => {
+  return await knex("products AS p")
+    .join("categories as c", "c.id", "p.category_id")
+    .select(
+      "p.id",
+      "p.name",
+      "p.description",
+      "p.brand",
+      "c.name AS category",
+      "p.sold",
+      "p.price",
+      "p.ratings",
+      "p.stocks"
+    )
+    .offset(skip)
+    .limit(resPerPage);
+};
 
-    reviews: [
-      {
-        postedBy: {
-          type: ObjectId,
-          ref: "users",
-        },
-        author: {
-          type: String,
-          required: true,
-        },
-        ratings: {
-          type: Number,
-          required: true,
-        },
-        content: {
-          type: String,
-          required: true,
-        },
-        datetime: {
-          type: Date,
-          default: Date.now(),
-        },
-      },
-    ],
-    images: [
-      {
-        url: {
-          type: String,
-          required: true,
-        },
-      },
-    ],
+const totalCount = async () => {
+  const { count } = await knex.count("id").from("products").first();
 
-    brand: {
-      type: String,
-      enum: ["Apple", "Samsung", "Microsoft", "Lenovo", "ASUS"],
-    },
-  },
+  return parseInt(count);
+};
 
-  { timestamps: true }
-);
+const getReviews = async (product_id) => {
+  const result = await knex("product_reviews")
+    .where("product_id", product_id)
+    .select("author", "content", "ratings", "updated_at AS date_posted");
 
-const Products = mongoose.model("products", productSchema);
+  return result;
+};
 
-module.exports = Products;
+const getImages = async (product_id) => {
+  return await knex("product_images")
+    .where("product_id", product_id)
+    .select("url");
+};
+
+module.exports = {
+  create,
+  findById,
+  findAll,
+  totalCount,
+  getReviews,
+  getImages,
+};

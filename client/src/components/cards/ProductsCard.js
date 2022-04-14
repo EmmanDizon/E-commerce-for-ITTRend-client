@@ -8,8 +8,9 @@ import { addToCart as addToCartAction } from "../../redux/actions/cart_action";
 import { useDispatch } from "react-redux";
 
 const ProductsCard = ({ product }) => {
-  const { _id, name, description, images } = product;
+  const { id, name, description, images, ratings } = product;
   const dispatch = useDispatch();
+  const image = JSON.parse(images);
 
   const addToCart = () => {
     dispatch(addToCartAction(product));
@@ -22,19 +23,19 @@ const ProductsCard = ({ product }) => {
           starDimension="20px"
           starSpacing="2px"
           starRatedColor="rgb(19,69,149)"
-          ratings={product}
+          product={product}
         />
       </div>
       <Card
         cover={
           <img
-            src={images[0].url}
+            src={image[0].url}
             className="p-2"
             style={{ height: "200px", objectFit: "cover" }}
           />
         }
         actions={[
-          <Link to={`/product/${_id}`}>
+          <Link to={`/product/${id}`}>
             <EyeOutlined className="text-info" /> <br /> View Product
           </Link>,
 

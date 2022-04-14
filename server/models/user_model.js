@@ -1,81 +1,40 @@
-const mongoose = require("mongoose");
-const validator = require("validator");
+const knex = require("../common/database");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const crypto = require("crypto");
 
-const { ObjectId } = mongoose.Schema;
-
-const userSchema = new mongoose.Schema(
-  {
-    firstname: {
-      type: String,
-      required: true,
-    },
-
-    lastname: {
-      type: String,
-      required: true,
-    },
-
-    email: {
-      type: String,
-      unique: true,
-      required: true,
-      index: true,
-      validate: [validator.isEmail, "Please enter valid email address"],
-    },
-    contactno: {
-      type: Number,
-      minlength: 11,
-      maxlength: 11,
-    },
-    password: {
-      type: String,
-      required: [true, "Please enter your password"],
-    },
-
-    role: {
-      type: String,
-      default: "user",
-    },
-
-    cart: {
-      type: Array,
-      default: [],
-    },
-
-    address: String,
-    wishList: [
-      {
-        type: ObjectId,
-        ref: "products",
-      },
-    ],
-  },
-  { timestamps: true }
-);
-
-userSchema.pre("save", async function (next) {
-  const salt = await bcrypt.genSalt(10);
-
-  if (!this.isModified("password")) {
-    next();
-  }
-
-  this.password = await bcrypt.hash(this.password, salt);
-});
-
-userSchema.methods.generateJwtToken = function () {
-  return jwt.sign({ id: this._id, name: this.name }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRES_TIME,
-  });
+const create = async (user) => {
+  return await knex("users").insert(user, "*");
 };
 
-userSchema.methods.comparePassword = async function (password) {
-  return await bcrypt.compare(password, this.password);
+const findById = async (id) => {
+  return await knex("users").where("id", id).first();
 };
 
-const Users = mongoose.model("users", userSchema);
+const findOne = async (column, value, selectedValues) => {
+  return await knex("users")
+    .where(column, value)
+    .first()
+    .select(selectedValues);
+};
 
-module.exports = Users;
+const comparePassword = async function (req_password, hash_password) {
+  return await bcrypt.compare(req_password, hash_password);
+};
+
+const generateJwtToken = function (user) {
+  return jwt.sign(
+    { id: user.id, name: `${user.firstname} ${user.lastname}` },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: process.env.JWT_EXPIRES_TIME,
+    }
+  );
+};
+
+module.exports = {
+  create,
+  findById,
+  findOne,
+  comparePassword,
+  generateJwtToken,
+};

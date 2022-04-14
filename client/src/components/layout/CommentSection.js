@@ -29,7 +29,7 @@ const CommentSection = ({ reviews }) => {
   });
 
   reviews.forEach((element) => {
-    element.datetime = formatDate(element.datetime);
+    element.datetime = formatDate(element.date_posted);
   });
 
   return (
