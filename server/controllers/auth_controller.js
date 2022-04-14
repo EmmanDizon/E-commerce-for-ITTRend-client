@@ -3,6 +3,7 @@ const User = require("../models/user_model");
 const ErrorHandler = require("../utils/error_handler");
 const sendToken = require("../utils/jwt_token");
 const bcrypt = require("bcrypt");
+const _ = require("lodash");
 
 exports.registerUser = TryCatch(async (req, res, next) => {
   let user = req.body;
@@ -10,7 +11,7 @@ exports.registerUser = TryCatch(async (req, res, next) => {
 
   user.password = await bcrypt.hash(user.password, salt);
 
-  const data = await User.create(req.body);
+  const data = await User.create(_.omit(req.body, ["confirm"]));
 
   res.status(201).json({
     success: true,

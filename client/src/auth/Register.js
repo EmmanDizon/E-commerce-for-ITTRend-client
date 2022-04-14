@@ -111,7 +111,7 @@ const Register = () => {
           </Form.Item>
 
           <Form.Item
-            name="contactno"
+            name="contact_no"
             label="Contact No."
             labelCol={{ span: 24 }}
             wrapperCol={{ span: 24 }}
