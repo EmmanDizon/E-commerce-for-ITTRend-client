@@ -16,7 +16,7 @@ const ProductCard = ({ product, reviews }) => {
   const dispatch = useDispatch();
 
   const addToCart = () => {
-    dispatch(addToCartAction(product));
+    dispatch(addToCartAction(product, 1, true));
   };
   return (
     <>

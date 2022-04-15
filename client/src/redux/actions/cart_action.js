@@ -7,9 +7,12 @@ import {
 import http from "../../service/http";
 
 export const addToCart =
-  (product, quantity = 1) =>
+  (product, quantity = 1, isFromViewProduct = false) =>
   (dispatch) => {
-    const image = JSON.parse(JSON.stringify(product.images));
+    const image = !isFromViewProduct
+      ? JSON.parse(product.images)
+      : JSON.parse(JSON.stringify(product.images));
+
     const result = {
       _id: product.id,
       name: product.name,
