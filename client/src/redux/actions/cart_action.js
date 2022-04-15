@@ -9,7 +9,7 @@ import http from "../../service/http";
 export const addToCart =
   (product, quantity = 1) =>
   (dispatch) => {
-    const image = JSON.parse(product.images);
+    const image = JSON.parse(JSON.stringify(product.images));
     const result = {
       _id: product.id,
       name: product.name,

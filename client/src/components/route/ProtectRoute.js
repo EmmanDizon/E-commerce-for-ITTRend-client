@@ -8,6 +8,6 @@ const useAuth = () => {
 
 export default function ProtectRoutes() {
   const isAuth = useAuth();
-  console.log(isAuth);
+
   return isAuth ? <Outlet /> : <Navigate to="/home" />;
 }
