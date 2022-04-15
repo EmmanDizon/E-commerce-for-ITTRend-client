@@ -3,7 +3,7 @@ const TryCatch = require("../middlewares/handle_try_catch");
 const ErrorHandler = require("../utils/error_handler");
 
 exports.getCategories = TryCatch(async (req, res, next) => {
-  const category = await Category.find().sort({ createdAt: -1 }); // SELECT * FROM categories ORDER BY createdAt DESC
+  const category = await Category.findAll();
 
   res.status(200).json({
     success: true,

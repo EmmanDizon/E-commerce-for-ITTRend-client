@@ -14,7 +14,7 @@ exports.createProducts = TryCatch(async (req, res) => {
 exports.getProducts = TryCatch(async (req, res) => {
   const { page } = req.body;
 
-  const resPerPage = 5;
+  const resPerPage = 10;
   const currentPage = page || 1;
   const skip = (currentPage - 1) * resPerPage;
 
@@ -54,5 +54,30 @@ exports.getProduct = TryCatch(async (req, res) => {
     success: true,
     product,
     reviews: productReviews,
+  });
+});
+
+exports.searchFilter = TryCatch(async (req, res) => {
+  const { keyword } = req.query;
+  const { page } = req.body;
+
+  const resPerPage = 10;
+  const currentPage = page || 1;
+  const skip = (currentPage - 1) * resPerPage;
+
+  const getProducts = await Product.searchByWord(keyword, skip, resPerPage);
+
+  const products = await Promise.all(
+    getProducts.map(async (product) => {
+      return {
+        ...product,
+        images: JSON.stringify(await Product.getImages(product.id)),
+      };
+    })
+  );
+
+  res.json({
+    products,
+    productsCount: products.count,
   });
 });

@@ -10,7 +10,7 @@ import http from "../../service/http";
 
 const { SubMenu, Item, ItemGroup } = Menu;
 
-const SideNavFilter = ({ price, onChange }) => {
+const SideNavFilter = ({ price, onAfterChange }) => {
   const [categories, setCategories] = useState([]);
   const [star, setStar] = useState("");
 
@@ -42,8 +42,8 @@ const SideNavFilter = ({ price, onChange }) => {
           tipFormatter={(v) => `₱${v}`}
           range
           value={price}
-          onChange={onChange}
           max="50000"
+          onAfterChange={onAfterChange}
         />
       </SubMenu>
 

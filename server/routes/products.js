@@ -4,6 +4,7 @@ const {
   createProducts,
   getProducts,
   getProduct,
+  searchFilter,
 } = require("../controllers/product_controller");
 
 const {
@@ -17,5 +18,7 @@ router.route("/get_products").post(getProducts);
 router
   .route("/create_products")
   .post(isAuthenticatedUser, authorizeRoles(), createProducts);
+
+router.route("/search/filters").post(searchFilter);
 
 module.exports = router;

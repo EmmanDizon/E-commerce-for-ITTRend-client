@@ -1,56 +1,84 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import ProductsCard from "../components/cards/ProductsCard";
 import Loader from "../components/layout/loader";
-import SideNavFilter from "../components/layout/SideNavFilter";
 import http from "../service/http";
+import { Pagination, Col, Row } from "antd";
 
 const Search = () => {
   const [products, setProducts] = useState([]);
+  const [productsCount, setProductsCount] = useState("");
   const [loading, setLoading] = useState(true);
-  const [price, setPrice] = useState([0, 0]);
+  const [page, setPage] = useState(1);
   const { text } = useSelector((state) => state.search);
+
   useEffect(() => {
     fetchProducts(text);
-  }, []);
+  }, [page]);
 
   const fetchProducts = async (query) => {
-    const { data: products } = await http.post(
-      `${process.env.REACT_APP_NODE_PORT}/products/search/filters?keyword=${query}`
+    const { data } = await http.post(
+      `${process.env.REACT_APP_NODE_PORT}/products/search/filters?keyword=${query}`,
+      {
+        page,
+      }
     );
 
-    setProducts(products);
+    setProducts(data.products);
+    setProductsCount(data.productsCount);
     setLoading(false);
   };
 
-  const onChange = (value) => {
-    setPrice(value);
+  const onPageChange = (e) => {
+    setPage(e);
   };
+
+  const totalPage = () => {
+    const total = Math.floor(5 / productsCount) * 10;
+
+    if (isNaN(total)) return 10;
+
+    return total;
+  };
+
   return (
-    <div className="container-fluid p-5">
-      <div className="row">
-        <div className="col-md-3">
-          <h5>FILTER SECTION</h5>
-          <SideNavFilter value={price} onChange={onChange} />
-        </div>
-
-        <div className="col-md-9">
-          {loading ? <Loader /> : <h5> PRODUCTS </h5>}
-
-          {products.length < 1 && <p>No products found</p>}
-
-          <div className="row">
-            {products.map((p) => {
-              return (
-                <div key={p._id} className="col-md-4">
-                  <ProductsCard product={p} />
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-    </div>
+    <>
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          {products.length > 0 ? (
+            <>
+              <div className="container">
+                <Row align="center">
+                  {products.map((product) => {
+                    return (
+                      <Col
+                        span={6}
+                        xs={24}
+                        xl={8}
+                        key={product._id}
+                        className="p-5"
+                      >
+                        <ProductsCard product={product} />
+                      </Col>
+                    );
+                  })}
+                </Row>
+              </div>
+              <Pagination
+                style={{ textAlign: "center" }}
+                defaultCurrent={page}
+                onChange={onPageChange}
+                total={totalPage()}
+              />
+            </>
+          ) : (
+            <h5 className="text-center">No Products Found.</h5>
+          )}
+        </>
+      )}
+    </>
   );
 };
 

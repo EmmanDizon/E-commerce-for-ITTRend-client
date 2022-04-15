@@ -15,6 +15,7 @@ import {
   OrderedListOutlined,
   LineChartOutlined,
   ShoppingCartOutlined,
+  ShoppingOutlined,
 } from "@ant-design/icons";
 
 const { SubMenu } = Menu;
@@ -53,16 +54,18 @@ const PublicHeader = () => {
         <Link to="/home">Home</Link>
       </Menu.Item>
 
+      <Menu.Item key="advance_shop" icon={<ShoppingOutlined />}>
+        <Link to="/home">Advance Shopping</Link>
+      </Menu.Item>
+
       <Menu.Item
         key="cart"
         icon={<ShoppingCartOutlined style={{ fontSize: "20px" }} />}
       >
         <Link to="/cart">
-          <Badge
-            count={cartItems.length}
-            offset={[-10, -20]}
-            size="small"
-          ></Badge>
+          <Badge count={cartItems.length} offset={[1, -6]} size="small">
+            Cart
+          </Badge>
         </Link>
       </Menu.Item>
 
