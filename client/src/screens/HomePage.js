@@ -46,13 +46,7 @@ const HomePage = () => {
             <Row align="center">
               {products.map((product) => {
                 return (
-                  <Col
-                    span={6}
-                    xs={24}
-                    xl={8}
-                    key={product._id}
-                    className="p-5"
-                  >
+                  <Col span={6} xs={24} xl={8} key={product.id} className="p-5">
                     <ProductsCard product={product} />
                   </Col>
                 );

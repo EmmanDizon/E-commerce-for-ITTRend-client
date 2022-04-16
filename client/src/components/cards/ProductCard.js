@@ -23,7 +23,7 @@ const ProductCard = ({ product, reviews }) => {
       <div className="col-md-6">
         <Carousel autoPlay infiniteLoop showThumbs={false}>
           {images &&
-            images.map((image) => <Image src={image.url} key={image._id} />)}
+            images.map((image) => <Image src={image.url} key={image.url} />)}
         </Carousel>
         <div>
           <CommentSection reviews={reviews} />
