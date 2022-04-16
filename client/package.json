@@ -11,6 +11,7 @@
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
     "antd": "^4.5.4",
+    "antd-img-crop": "^4.2.0",
     "axios": "^0.26.1",
     "countries-list": "^2.6.1",
     "font-awesome": "^4.7.0",
